@@ -41,6 +41,7 @@
         "reference/create-order",
         "reference/list-orders",
         "reference/get-order",
+        "reference/update-order-metadata",
         "reference/list-kits",
         "reference/get-kit",
         "reference/generate-registration-token"

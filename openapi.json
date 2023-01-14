@@ -656,7 +656,231 @@
                             }
                           }
                         }
-                      ]
+                      ],
+                      "metadata": null
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "api_v2_update_order_metadata",
+        "description": "Replace the metadata for an order with a new set of values",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "public_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the order to retrieve.",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "metadata": {
+                    "type": "object",
+                    "description": "The metadata to replace the existing metadata with.",
+                    "example": {
+                      "some_key": "some_value"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "order_id": "O1A2B3C4D5",
+                      "created": "2023-01-14T04:30:11.222Z",
+                      "status": "completed",
+                      "recipient": {
+                        "first_name": "Alice",
+                        "last_name": "Jones",
+                        "email": "alice123@gmail.com",
+                        "phone": "123456789",
+                        "address": {
+                          "street1": "123 Street Road",
+                          "street2": "",
+                          "city": "San Francisco",
+                          "state": "CA",
+                          "country": "US",
+                          "zip": "12345"
+                        }
+                      },
+                      "kit_types": [
+                        "health_kit_1"
+                      ],
+                      "kits": [
+                        {
+                          "kit_id": "SPOTABCDEF",
+                          "type": "health_kit_1",
+                          "status": "registered",
+                          "events": [
+                            {
+                              "status": "preparing",
+                              "created": "2023-01-01T04:30:11.222Z"
+                            },
+                            {
+                              "status": "in_transit",
+                              "created": "2023-01-02T04:30:11.222Z"
+                            },
+                            {
+                              "status": "delivered",
+                              "created": "2023-01-03T04:30:11.222Z"
+                            },
+                            {
+                              "status": "registered",
+                              "created": "2023-01-04T04:30:11.222Z"
+                            }
+                          ],
+                          "shipment_to_customer": {
+                            "tracking_number": "9400123456789999876500",
+                            "carrier": "USPS",
+                            "created": "2023-01-01T04:30:11.222Z"
+                          },
+                          "registered_to": {
+                            "patient_id": "50d394e4-b32e-425a-8384-c13caad14429",
+                            "first_name": "Alice",
+                            "last_name": "Jones",
+                            "date_of_birth": "1990-01-01",
+                            "sex": "F",
+                            "email": "alice123@gmail.com",
+                            "phone": "123456789"
+                          },
+                          "sample": {
+                            "sample_id": "SPOTABCDEF",
+                            "status": "resulted",
+                            "events": [
+                              {
+                                "status": "awaiting_collection",
+                                "created": "2023-01-01T04:30:11.222Z"
+                              },
+                              {
+                                "status": "in_transit",
+                                "created": "2023-01-05T04:30:11.222Z"
+                              },
+                              {
+                                "status": "delivered",
+                                "created": "2023-01-06T04:30:11.222Z"
+                              },
+                              {
+                                "status": "received",
+                                "created": "2023-01-07T04:30:11.222Z"
+                              },
+                              {
+                                "status": "resulted",
+                                "created": "2023-01-08T04:30:11.222Z"
+                              }
+                            ],
+                            "type": "adx100_2",
+                            "shipments": [
+                              {
+                                "tracking_number": "string",
+                                "carrier": "string",
+                                "created": "2023-01-14T04:30:11.222Z"
+                              }
+                            ],
+                            "panel": "example_panel",
+                            "report": {
+                              "report_id": "a6107e6d-cfe3-4ba8-8a3e-6b68aabcc7b1",
+                              "results": [
+                                {
+                                  "result_type": "quantity",
+                                  "name": "HDL Cholesterol",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": 123,
+                                  "unit_of_measure": "mg/dL",
+                                  "range_minimum": 20,
+                                  "range_maximum": 200,
+                                  "comments": null
+                                },
+                                {
+                                  "result_type": "quantity",
+                                  "name": "Vitamin B12",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": "<10",
+                                  "unit_of_measure": "pg/mL",
+                                  "range_minimum": 20,
+                                  "range_maximum": 200,
+                                  "comments": null
+                                },
+                                {
+                                  "result_type": "reactivity",
+                                  "name": "Chlamydia",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": "negative",
+                                  "unit_of_measure": null,
+                                  "range_minimum": null,
+                                  "range_maximum": null,
+                                  "comments": null
+                                },
+                                {
+                                  "result_type": "DNA",
+                                  "name": "rs1234567",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": "TT",
+                                  "unit_of_measure": null,
+                                  "range_minimum": null,
+                                  "range_maximum": null,
+                                  "comments": null
+                                }
+                              ],
+                              "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
+                              "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
+                              "date_collected": "2023-01-14T04:30:11.223Z",
+                              "date_received": "2023-01-14T04:30:11.223Z",
+                              "is_amendment": false
+                            }
+                          }
+                        }
+                      ],
+                      "metadata": {
+                        "some_key": "some_value"
+                      }
                     }
                   }
                 }
@@ -874,13 +1098,10 @@
           "recipient": {
             "$ref": "#/components/schemas/Recipient"
           },
-          "client_order_id": {
-            "type": "string",
-            "description": "Optional metadata field for client use."
-          },
-          "client_customer_id": {
-            "type": "string",
-            "description": "Optional metadata field for client use."
+          "metadata": {
+            "type": "object",
+            "nullable": true,
+            "description": "An optional dictionary of key-value pairs stored with the order."
           }
         },
         "required": [
@@ -1168,6 +1389,11 @@
             "items": {
               "$ref": "#/components/schemas/Kit"
             }
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true,
+            "description": "An optional dictionary of key-value pairs stored with the order."
           }
         }
       },
