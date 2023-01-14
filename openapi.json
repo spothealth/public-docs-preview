@@ -34,8 +34,7 @@
             "schema": {
               "type": "integer",
               "minimum": 0
-            },
-            "required": false
+            }
           },
           {
             "in": "query",
@@ -550,27 +549,23 @@
           "street1": {
             "type": "string",
             "description": "Recipient's address.",
-            "example": "123 Main St",
-            "required": true
+            "example": "123 Main St"
           },
           "street2": {
             "description": "Second line of recipient's address.",
             "type": "string",
             "nullable": true,
-            "example": "Apt 1",
-            "required": false
+            "example": "Apt 1"
           },
           "city": {
             "type": "string",
             "description": "Recipient's city of residence.",
-            "example": "San Francisco",
-            "required": true
+            "example": "San Francisco"
           },
           "state": {
             "type": "string",
             "description": "Recipient's state of residence.",
-            "example": "CA",
-            "required": true
+            "example": "CA"
           },
           "country": {
             "type": "string",
@@ -579,24 +574,28 @@
               "US",
               "CA"
             ],
-            "example": "US",
-            "required": true
+            "example": "US"
           },
           "zip": {
             "type": "string",
             "description": "Recipient's zip code.",
-            "example": "94105",
-            "required": true
+            "example": "94105"
           }
-        }
+        },
+        "required": [
+          "street1",
+          "city",
+          "state",
+          "country",
+          "zip"
+        ]
       },
       "AssignKits": {
         "type": "object",
         "properties": {
           "order_id": {
             "type": "string",
-            "example": "O1234567890",
-            "required": true
+            "example": "O1234567890"
           },
           "kit_ids": {
             "type": "array",
@@ -606,13 +605,11 @@
             "example": [
               "SPOT123456",
               "SPOT123457"
-            ],
-            "required": true
+            ]
           },
           "bypass_address_validation": {
             "type": "boolean",
-            "example": false,
-            "required": false
+            "example": false
           }
         }
       },
