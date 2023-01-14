@@ -133,25 +133,6 @@
                       }
                     }
                   }
-                },
-                "example": {
-                  "Success": {
-                    "summary": "Success",
-                    "description": "",
-                    "value": [
-                      {
-                        "kit_id": "SPOTABCDEF",
-                        "kit_type": "health_kit_1",
-                        "order_id": "O1A2B3C4D5",
-                        "kit_status": "delivered",
-                        "sample_status": "received"
-                      }
-                    ]
-                  },
-                  "No results": {
-                    "description": "",
-                    "value": []
-                  }
                 }
               }
             },
@@ -315,37 +296,6 @@
                       }
                     }
                   }
-                },
-                "example": {
-                  "Success": {
-                    "description": "",
-                    "value": [
-                      {
-                        "kit_id": "SPOTABCDEF",
-                        "kit_type": "health_kit_1",
-                        "order_id": "O1A2B3C4D5",
-                        "status": "in_progress",
-                        "recipient": {
-                          "first_name": "Alice",
-                          "last_name": "Jones",
-                          "email": "alice123@gmail.com",
-                          "phone": "123456789",
-                          "address": {
-                            "street1": "123 Street Road",
-                            "street2": "",
-                            "city": "San Francisco",
-                            "state": "CA",
-                            "country": "US",
-                            "zip": "12345"
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "No results": {
-                    "description": "",
-                    "value": []
-                  }
                 }
               }
             }
@@ -430,157 +380,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Order"
-                },
-                "example": {
-                  "Success": {
-                    "value": {
-                      "order_id": "O1A2B3C4D5",
-                      "created": "2023-01-14T04:30:11.222Z",
-                      "status": "completed",
-                      "recipient": {
-                        "first_name": "Alice",
-                        "last_name": "Jones",
-                        "email": "alice123@gmail.com",
-                        "phone": "123456789",
-                        "address": {
-                          "street1": "123 Street Road",
-                          "street2": "",
-                          "city": "San Francisco",
-                          "state": "CA",
-                          "country": "US",
-                          "zip": "12345"
-                        }
-                      },
-                      "kit_types": [
-                        "health_kit_1"
-                      ],
-                      "kits": [
-                        {
-                          "kit_id": "SPOTABCDEF",
-                          "type": "health_kit_1",
-                          "status": "registered",
-                          "events": [
-                            {
-                              "status": "preparing",
-                              "created": "2023-01-01T04:30:11.222Z"
-                            },
-                            {
-                              "status": "in_transit",
-                              "created": "2023-01-02T04:30:11.222Z"
-                            },
-                            {
-                              "status": "delivered",
-                              "created": "2023-01-03T04:30:11.222Z"
-                            },
-                            {
-                              "status": "registered",
-                              "created": "2023-01-04T04:30:11.222Z"
-                            }
-                          ],
-                          "shipment_to_customer": {
-                            "tracking_number": "9400123456789999876500",
-                            "carrier": "USPS",
-                            "created": "2023-01-01T04:30:11.222Z"
-                          },
-                          "registered_to": {
-                            "patient_id": "50d394e4-b32e-425a-8384-c13caad14429",
-                            "first_name": "Alice",
-                            "last_name": "Jones",
-                            "date_of_birth": "1990-01-01",
-                            "sex": "F",
-                            "email": "alice123@gmail.com",
-                            "phone": "123456789"
-                          },
-                          "sample": {
-                            "sample_id": "SPOTABCDEF",
-                            "status": "resulted",
-                            "events": [
-                              {
-                                "status": "awaiting_collection",
-                                "created": "2023-01-01T04:30:11.222Z"
-                              },
-                              {
-                                "status": "in_transit",
-                                "created": "2023-01-05T04:30:11.222Z"
-                              },
-                              {
-                                "status": "delivered",
-                                "created": "2023-01-06T04:30:11.222Z"
-                              },
-                              {
-                                "status": "received",
-                                "created": "2023-01-07T04:30:11.222Z"
-                              },
-                              {
-                                "status": "resulted",
-                                "created": "2023-01-08T04:30:11.222Z"
-                              }
-                            ],
-                            "type": "adx100_2",
-                            "shipments": [
-                              {
-                                "tracking_number": "string",
-                                "carrier": "string",
-                                "created": "2023-01-14T04:30:11.222Z"
-                              }
-                            ],
-                            "panel": "example_panel",
-                            "report": {
-                              "report_id": "a6107e6d-cfe3-4ba8-8a3e-6b68aabcc7b1",
-                              "results": [
-                                {
-                                  "result_type": "quantity",
-                                  "name": "HDL Cholesterol",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": 123,
-                                  "unit_of_measure": "mg/dL",
-                                  "range_minimum": 20,
-                                  "range_maximum": 200,
-                                  "comments": null
-                                },
-                                {
-                                  "result_type": "quantity",
-                                  "name": "Vitamin B12",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": "<10",
-                                  "unit_of_measure": "pg/mL",
-                                  "range_minimum": 20,
-                                  "range_maximum": 200,
-                                  "comments": null
-                                },
-                                {
-                                  "result_type": "reactivity",
-                                  "name": "Chlamydia",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": "negative",
-                                  "unit_of_measure": null,
-                                  "range_minimum": null,
-                                  "range_maximum": null,
-                                  "comments": null
-                                },
-                                {
-                                  "result_type": "DNA",
-                                  "name": "rs1234567",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": "TT",
-                                  "unit_of_measure": null,
-                                  "range_minimum": null,
-                                  "range_maximum": null,
-                                  "comments": null
-                                }
-                              ],
-                              "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
-                              "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
-                              "date_collected": "2023-01-14T04:30:11.223Z",
-                              "date_received": "2023-01-14T04:30:11.223Z",
-                              "is_amendment": false
-                            }
-                          }
-                        }
-                      ],
-                      "metadata": null
-                    }
-                  }
                 }
               }
             },
@@ -651,159 +450,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Order"
-                },
-                "example": {
-                  "Success": {
-                    "value": {
-                      "order_id": "O1A2B3C4D5",
-                      "created": "2023-01-14T04:30:11.222Z",
-                      "status": "completed",
-                      "recipient": {
-                        "first_name": "Alice",
-                        "last_name": "Jones",
-                        "email": "alice123@gmail.com",
-                        "phone": "123456789",
-                        "address": {
-                          "street1": "123 Street Road",
-                          "street2": "",
-                          "city": "San Francisco",
-                          "state": "CA",
-                          "country": "US",
-                          "zip": "12345"
-                        }
-                      },
-                      "kit_types": [
-                        "health_kit_1"
-                      ],
-                      "kits": [
-                        {
-                          "kit_id": "SPOTABCDEF",
-                          "type": "health_kit_1",
-                          "status": "registered",
-                          "events": [
-                            {
-                              "status": "preparing",
-                              "created": "2023-01-01T04:30:11.222Z"
-                            },
-                            {
-                              "status": "in_transit",
-                              "created": "2023-01-02T04:30:11.222Z"
-                            },
-                            {
-                              "status": "delivered",
-                              "created": "2023-01-03T04:30:11.222Z"
-                            },
-                            {
-                              "status": "registered",
-                              "created": "2023-01-04T04:30:11.222Z"
-                            }
-                          ],
-                          "shipment_to_customer": {
-                            "tracking_number": "9400123456789999876500",
-                            "carrier": "USPS",
-                            "created": "2023-01-01T04:30:11.222Z"
-                          },
-                          "registered_to": {
-                            "patient_id": "50d394e4-b32e-425a-8384-c13caad14429",
-                            "first_name": "Alice",
-                            "last_name": "Jones",
-                            "date_of_birth": "1990-01-01",
-                            "sex": "F",
-                            "email": "alice123@gmail.com",
-                            "phone": "123456789"
-                          },
-                          "sample": {
-                            "sample_id": "SPOTABCDEF",
-                            "status": "resulted",
-                            "events": [
-                              {
-                                "status": "awaiting_collection",
-                                "created": "2023-01-01T04:30:11.222Z"
-                              },
-                              {
-                                "status": "in_transit",
-                                "created": "2023-01-05T04:30:11.222Z"
-                              },
-                              {
-                                "status": "delivered",
-                                "created": "2023-01-06T04:30:11.222Z"
-                              },
-                              {
-                                "status": "received",
-                                "created": "2023-01-07T04:30:11.222Z"
-                              },
-                              {
-                                "status": "resulted",
-                                "created": "2023-01-08T04:30:11.222Z"
-                              }
-                            ],
-                            "type": "adx100_2",
-                            "shipments": [
-                              {
-                                "tracking_number": "string",
-                                "carrier": "string",
-                                "created": "2023-01-14T04:30:11.222Z"
-                              }
-                            ],
-                            "panel": "example_panel",
-                            "report": {
-                              "report_id": "a6107e6d-cfe3-4ba8-8a3e-6b68aabcc7b1",
-                              "results": [
-                                {
-                                  "result_type": "quantity",
-                                  "name": "HDL Cholesterol",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": 123,
-                                  "unit_of_measure": "mg/dL",
-                                  "range_minimum": 20,
-                                  "range_maximum": 200,
-                                  "comments": null
-                                },
-                                {
-                                  "result_type": "quantity",
-                                  "name": "Vitamin B12",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": "<10",
-                                  "unit_of_measure": "pg/mL",
-                                  "range_minimum": 20,
-                                  "range_maximum": 200,
-                                  "comments": null
-                                },
-                                {
-                                  "result_type": "reactivity",
-                                  "name": "Chlamydia",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": "negative",
-                                  "unit_of_measure": null,
-                                  "range_minimum": null,
-                                  "range_maximum": null,
-                                  "comments": null
-                                },
-                                {
-                                  "result_type": "DNA",
-                                  "name": "rs1234567",
-                                  "time_collected": "2023-01-14T04:30:11.222Z",
-                                  "result": "TT",
-                                  "unit_of_measure": null,
-                                  "range_minimum": null,
-                                  "range_maximum": null,
-                                  "comments": null
-                                }
-                              ],
-                              "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
-                              "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
-                              "date_collected": "2023-01-14T04:30:11.223Z",
-                              "date_received": "2023-01-14T04:30:11.223Z",
-                              "is_amendment": false
-                            }
-                          }
-                        }
-                      ],
-                      "metadata": {
-                        "some_key": "some_value"
-                      }
-                    }
-                  }
                 }
               }
             },
@@ -903,20 +549,28 @@
         "properties": {
           "street1": {
             "type": "string",
-            "description": "Recipient's address."
+            "description": "Recipient's address.",
+            "example": "123 Main St",
+            "required": true
           },
           "street2": {
             "description": "Second line of recipient's address.",
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "example": "Apt 1",
+            "required": false
           },
           "city": {
             "type": "string",
-            "description": "Recipient's city of residence."
+            "description": "Recipient's city of residence.",
+            "example": "San Francisco",
+            "required": true
           },
           "state": {
             "type": "string",
-            "description": "Recipient's state of residence."
+            "description": "Recipient's state of residence.",
+            "example": "CA",
+            "required": true
           },
           "country": {
             "type": "string",
@@ -924,40 +578,43 @@
             "enum": [
               "US",
               "CA"
-            ]
+            ],
+            "example": "US",
+            "required": true
           },
           "zip": {
             "type": "string",
-            "description": "Recipient's zip code."
+            "description": "Recipient's zip code.",
+            "example": "94105",
+            "required": true
           }
-        },
-        "required": [
-          "city",
-          "state",
-          "street1",
-          "zip"
-        ]
+        }
       },
       "AssignKits": {
         "type": "object",
         "properties": {
           "order_id": {
-            "type": "string"
+            "type": "string",
+            "example": "O1234567890",
+            "required": true
           },
           "kit_ids": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "example": [
+              "SPOT123456",
+              "SPOT123457"
+            ],
+            "required": true
           },
           "bypass_address_validation": {
-            "type": "boolean"
+            "type": "boolean",
+            "example": false,
+            "required": false
           }
-        },
-        "required": [
-          "kit_ids",
-          "order_id"
-        ]
+        }
       },
       "BadRequest": {
         "type": "object",
@@ -1136,59 +793,86 @@
         "type": "object",
         "properties": {
           "kit_id": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique identifier of the kit.",
+            "example": "SPOT123456"
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "description": "The kit's type",
+            "example": "example_lipid_kit"
           },
           "status": {
-            "type": "string"
+            "$ref": "#/components/schemas/KitStatus"
           },
           "events": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/KitEvent"
-            }
+            },
+            "description": "A list of all the events that have occurred for this kit.",
+            "example": [
+              {
+                "status": "awaiting_collection",
+                "created": "2023-01-01T04:30:11.222Z"
+              },
+              {
+                "status": "in_transit",
+                "created": "2023-01-05T04:30:11.222Z"
+              },
+              {
+                "status": "delivered",
+                "created": "2023-01-06T04:30:11.222Z"
+              },
+              {
+                "status": "received",
+                "created": "2023-01-07T04:30:11.222Z"
+              },
+              {
+                "status": "resulted",
+                "created": "2023-01-08T04:30:11.222Z"
+              }
+            ]
           },
           "shipment_to_customer": {
-            "type": "object",
-            "properties": {
-              "tracking_number": {
-                "type": "string"
-              },
-              "carrier": {
-                "type": "string"
-              },
-              "created": {
-                "type": "string",
-                "format": "date-time"
-              }
-            }
+            "$ref": "#/components/schemas/Shipment"
           },
           "registered_to": {
             "type": "object",
             "properties": {
               "patient_id": {
-                "type": "string"
+                "type": "string",
+                "format": "uuid",
+                "example": "7563e8e2-7fbd-480c-9b8b-2070eda884bf"
               },
               "first_name": {
-                "type": "string"
+                "type": "string",
+                "example": "Alice"
               },
               "last_name": {
-                "type": "string"
+                "type": "string",
+                "example": "Smith"
               },
               "date_of_birth": {
                 "type": "string",
-                "format": "date"
+                "format": "date",
+                "example": "1990-01-01"
               },
               "sex": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "M",
+                  "F"
+                ],
+                "example": "F"
               },
               "email": {
-                "type": "string"
+                "type": "string",
+                "example": "alice123@gmail.com"
               },
               "phone": {
-                "type": "string"
+                "type": "string",
+                "example": "1234567890"
               }
             }
           },
@@ -1196,10 +880,11 @@
             "type": "object",
             "properties": {
               "sample_id": {
-                "type": "string"
+                "type": "string",
+                "example": "SPOT654321"
               },
               "status": {
-                "type": "string"
+                "$ref": "#/components/schemas/SampleStatus"
               },
               "events": {
                 "type": "array",
@@ -1217,29 +902,18 @@
                   "dry_transport_swab",
                   "hemaspot_hf",
                   "saliva_3"
-                ]
+                ],
+                "example": "adx100"
               },
               "shipments": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "tracking_number": {
-                      "type": "string"
-                    },
-                    "carrier": {
-                      "type": "string"
-                    },
-                    "created": {
-                      "type": "string",
-                      "format": "date-time"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Shipment"
                 }
               },
               "panel": {
                 "type": "string",
-                "example": "OYOYOYOYOY"
+                "example": "lipids_panel_complete"
               },
               "report": {
                 "$ref": "#/components/schemas/Report"
@@ -1270,7 +944,8 @@
           "delivery_exception",
           "registered",
           "cancelled"
-        ]
+        ],
+        "example": "preparing"
       },
       "NotFound": {
         "type": "object",
@@ -1288,7 +963,9 @@
         "type": "object",
         "properties": {
           "order_id": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique identifier of the order.",
+            "example": "O1234567"
           },
           "created": {
             "type": "string",
@@ -1304,7 +981,11 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "description": "A list of the kit types that are included in this order.",
+            "example": [
+              "example_lipid_kit"
+            ]
           },
           "kits": {
             "type": "array",
@@ -1315,7 +996,8 @@
           "metadata": {
             "type": "object",
             "nullable": true,
-            "description": "An optional dictionary of key-value pairs stored with the order."
+            "description": "An optional dictionary of key-value pairs stored with the order.",
+            "example": null
           }
         }
       },
@@ -1345,19 +1027,23 @@
         "properties": {
           "first_name": {
             "type": "string",
-            "description": "Recipient's first name."
+            "description": "Recipient's first name.",
+            "example": "Alice"
           },
           "last_name": {
             "type": "string",
-            "description": "Recipient's last name."
+            "description": "Recipient's last name.",
+            "example": "Smith"
           },
           "email": {
             "type": "string",
-            "description": "Recipient's email."
+            "description": "Recipient's email.",
+            "example": "alice123@gmail.com"
           },
           "phone": {
             "type": "string",
-            "description": "Recipient's phone number, as a string."
+            "description": "Recipient's phone number, as a string.",
+            "example": "1234567890"
           },
           "address": {
             "$ref": "#/components/schemas/Address"
@@ -1392,16 +1078,64 @@
                 {
                   "$ref": "#/components/schemas/ResultDNA"
                 }
+              ],
+              "example": [
+                {
+                  "result_type": "quantity",
+                  "name": "HDL Cholesterol",
+                  "time_collected": "2023-01-14T04:30:11.222Z",
+                  "result": 123,
+                  "unit_of_measure": "mg/dL",
+                  "range_minimum": 20,
+                  "range_maximum": 200,
+                  "comments": null
+                },
+                {
+                  "result_type": "quantity",
+                  "name": "Vitamin B12",
+                  "time_collected": "2023-01-14T04:30:11.222Z",
+                  "result": "<10",
+                  "unit_of_measure": "pg/mL",
+                  "range_minimum": 20,
+                  "range_maximum": 200,
+                  "comments": null
+                },
+                {
+                  "result_type": "reactivity",
+                  "name": "Chlamydia",
+                  "time_collected": "2023-01-14T04:30:11.222Z",
+                  "result": "negative",
+                  "unit_of_measure": null,
+                  "range_minimum": null,
+                  "range_maximum": null,
+                  "comments": null
+                },
+                {
+                  "result_type": "DNA",
+                  "name": "rs1234567",
+                  "time_collected": "2023-01-14T04:30:11.222Z",
+                  "result": "TT",
+                  "unit_of_measure": null,
+                  "range_minimum": null,
+                  "range_maximum": null,
+                  "comments": null
+                }
               ]
             }
           },
           "pdf": {
             "type": "string",
-            "format": "uri"
+            "format": "url",
+            "description": "A URL to the PDF report.",
+            "example": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
+            "nullable": true
           },
           "txt": {
             "type": "string",
-            "format": "uri"
+            "format": "url",
+            "description": "A URL to the TXT report.",
+            "example": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
+            "nullable": true
           },
           "date_collected": {
             "type": "string",
@@ -1412,7 +1146,9 @@
             "format": "date-time"
           },
           "is_amendment": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether this report is an amendment to a previous report.",
+            "example": false
           }
         }
       },
@@ -1589,6 +1325,30 @@
           "extra_quality_checks",
           "cancelled"
         ]
+      },
+      "Shipment": {
+        "type": "object",
+        "properties": {
+          "tracking_number": {
+            "type": "string",
+            "nullable": true,
+            "example": "9400123456789999876500"
+          },
+          "carrier": {
+            "type": "string",
+            "enum": [
+              "fedex",
+              "ups",
+              "usps"
+            ],
+            "example": "usps",
+            "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       },
       "UploadDnaResults": {
         "type": "object",
