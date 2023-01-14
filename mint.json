@@ -38,13 +38,11 @@
     {
       "group": "API Reference",
       "pages": [
-        "reference/get-kits-list",
-        "reference/return-kit",
         "reference/create-order",
-        "reference/get-order-list",
-        "reference/retrieve-order-2",
-        "reference/create-new-patient",
-        "reference/retrieve-order-1",
+        "reference/list-order",
+        "reference/get-order",
+        "reference/list-kits",
+        "reference/get-kit",
         "reference/generate-registration-token"
       ]
     }
