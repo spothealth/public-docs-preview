@@ -43,7 +43,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Only retrieve kits associated with this email address."
+            "description": "Only retrieve kits associated with this email address. Case insensitive."
           },
           {
             "in": "query",
@@ -51,7 +51,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Only retrieve kits associated with this first name."
+            "description": "Only retrieve kits associated with this first name. Case insensitive."
           },
           {
             "in": "query",
@@ -59,7 +59,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Only retrieve kits associated with this kit type. Case insensitive."
+            "description": "Only retrieve kits associated with this kit type."
           },
           {
             "in": "query",
@@ -67,7 +67,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Only retrieve kits associated with this last name."
+            "description": "Only retrieve kits associated with this last name. Case insensitive."
           },
           {
             "in": "query",
@@ -81,17 +81,17 @@
             "in": "query",
             "name": "kit_status",
             "schema": {
-              "type": "string"
+              "$ref": "#/components/schemas/KitStatus"
             },
-            "description": "Only retrieve kits with this status. Case insensitive."
+            "description": "Only retrieve kits whose most recent event is this status."
           },
           {
             "in": "query",
             "name": "sample_status",
             "schema": {
-              "type": "string"
+              "$ref": "#/components/schemas/SampleStatus"
             },
-            "description": "Only retrieve kits whose sample has this status. Case insensitive."
+            "description": "Only retrieve kits whose sample's most recent event is this status."
           }
         ],
         "security": [
@@ -115,20 +115,21 @@
                         "type": "string"
                       },
                       "order_id": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "SPOTABCDEF"
                       },
                       "kit_status": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/KitStatus"
                       },
                       "sample_status": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/SampleStatus"
                       }
                     }
                   }
                 }
               }
             },
-            "description": ""
+            "description": "Success"
           }
         }
       }
@@ -168,32 +169,28 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
+                  "$ref": "#/components/schemas/BadRequest"
                 }
               }
             },
-            "description": ""
+            "description": "Bad request"
           },
           "404": {
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
+                  "$ref": "#/components/schemas/NotFound"
                 }
               }
             },
-            "description": ""
+            "description": "Not found"
           }
         }
       }
     },
     "/api/v2/orders/": {
       "get": {
-        "operationId": "api_v1_orders_retrieve",
+        "operationId": "api_v2_list_orders",
         "description": "Get a list of orders associated with the user making the request. Providing any query params will further filter the results to only those that match the query params.",
         "parameters": [
           {
@@ -241,6 +238,25 @@
               ]
             },
             "description": "Only retrieve orders that have this status."
+          },
+          {
+            "in": "query",
+            "name": "results",
+            "description": "Number of results to return.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
           }
         ],
         "security": [
@@ -264,7 +280,7 @@
         }
       },
       "post": {
-        "operationId": "api_v1_order_create",
+        "operationId": "api_v2_create_order",
         "description": "Create an order for delivering kits to a client, which will be created with a status of 'pending'.The order will be created with the user making the request as the 'placed_by' user.",
         "requestBody": {
           "content": {
@@ -317,17 +333,9 @@
     },
     "/api/v2/orders/{public_id}/": {
       "get": {
-        "operationId": "api_v1_orders_retrieve_2",
+        "operationId": "api_v2_get_order",
         "description": "Retrieve a singular order matching the provided ID.",
         "parameters": [
-          {
-            "in": "query",
-            "name": "order_id",
-            "schema": {
-              "type": "string"
-            },
-            "description": "The ID of the order to retrieve."
-          },
           {
             "in": "path",
             "name": "public_id",
@@ -348,9 +356,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             },
@@ -381,7 +387,7 @@
     },
     "/api/v2/tokens/patient_registration/": {
       "post": {
-        "operationId": "api_v1_tokens_patient_registration_create",
+        "operationId": "api_v2_create_patient_token",
         "description": "Generate a one-time-use registration token for a patient with a lifetime of 10 minutes.",
         "requestBody": {
           "content": {
