@@ -92,6 +92,14 @@
               "$ref": "#/components/schemas/SampleStatus"
             },
             "description": "Only retrieve kits whose sample's most recent event is this status."
+          },
+          {
+            "in": "query",
+            "name": "order_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Get kits belonging to a specified order ID"
           }
         ],
         "security": [
@@ -115,8 +123,7 @@
                         "type": "string"
                       },
                       "order_id": {
-                        "type": "string",
-                        "example": "SPOTABCDEF"
+                        "type": "string"
                       },
                       "kit_status": {
                         "$ref": "#/components/schemas/KitStatus"
@@ -125,6 +132,24 @@
                         "$ref": "#/components/schemas/SampleStatus"
                       }
                     }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "description": "",
+                    "value": [
+                      {
+                        "kit_id": "SPOTABCDEF",
+                        "kit_type": "health_kit_1",
+                        "order_id": "O1A2B3C4D5",
+                        "kit_status": "received",
+                        "sample_status": "received"
+                      }
+                    ]
+                  },
+                  "No results": {
+                    "description": "",
+                    "value": []
                   }
                 }
               }
@@ -156,14 +181,93 @@
         ],
         "responses": {
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Kit"
+                },
+                "examples": {
+                  "Complete kit": {
+                    "description": "",
+                    "value": {
+                      "kit_id": "string",
+                      "type": "string",
+                      "status": "string",
+                      "events": [
+                        {
+                          "status": "preparing",
+                          "created": "2023-01-14T03:34:01.736Z"
+                        }
+                      ],
+                      "shipment_to_customer": {
+                        "tracking_number": "string",
+                        "carrier": "string",
+                        "created": "2023-01-14T03:34:01.736Z"
+                      },
+                      "registered_to": {
+                        "patient_id": "string",
+                        "first_name": "string",
+                        "last_name": "string",
+                        "date_of_birth": "2023-01-14",
+                        "sex": "string",
+                        "email": "string",
+                        "phone": "string"
+                      },
+                      "sample": {
+                        "sample_id": "string",
+                        "status": "string",
+                        "events": [
+                          {
+                            "status": "awaiting_collection",
+                            "created": "2023-01-14T03:34:01.736Z"
+                          }
+                        ],
+                        "type": "string",
+                        "shipments": [
+                          {
+                            "tracking_number": "string",
+                            "carrier": "string",
+                            "created": "2023-01-14T03:34:01.736Z"
+                          }
+                        ],
+                        "panel": "string",
+                        "report": {
+                          "report_id": "da8d7f03-61ae-499c-8cb4-fa8629e2dad8",
+                          "results": [
+                            {
+                              "result_type": "blood",
+                              "name": "string",
+                              "time_collected": "2023-01-14T03:34:01.736Z",
+                              "result": "string",
+                              "unit_of_measure": "string",
+                              "result_level": "string",
+                              "range_minimum": "string",
+                              "range_maximum": "string",
+                              "comments": "string"
+                            }
+                          ],
+                          "panel": "string",
+                          "pdf": "string",
+                          "txt": "string",
+                          "individual": {
+                            "patient_id": "string",
+                            "first_name": "string",
+                            "last_name": "string",
+                            "date_of_birth": "2023-01-14",
+                            "sex": "string",
+                            "email": "string",
+                            "phone": "string"
+                          },
+                          "date_collected": "2023-01-14T03:34:01.736Z",
+                          "date_received": "2023-01-14T03:34:01.736Z"
+                        }
+                      }
+                    }
+                  }
                 }
               }
-            },
-            "description": ""
+            }
           },
           "400": {
             "content": {
@@ -191,7 +295,7 @@
     "/api/v2/orders/": {
       "get": {
         "operationId": "api_v2_list_orders",
-        "description": "Get a list of orders associated with the user making the request. Providing any query params will further filter the results to only those that match the query params.",
+        "description": "Get a list of your orders. Providing any query params will further filter the results to only those that match the query params.",
         "parameters": [
           {
             "in": "query",
@@ -266,16 +370,63 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "order_id": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "$ref": "#/components/schemas/OrderStatus"
+                      },
+                      "created": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "recipient": {
+                        "$ref": "#/components/schemas/Recipient"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "description": "",
+                    "value": [
+                      {
+                        "kit_id": "SPOTABCDEF",
+                        "kit_type": "health_kit_1",
+                        "order_id": "O1A2B3C4D5",
+                        "status": "in_progress",
+                        "recipient": {
+                          "first_name": "Alice",
+                          "last_name": "Jones",
+                          "email": "alice123@gmail.com",
+                          "phone": "123456789",
+                          "address": {
+                            "street1": "123 Street Road",
+                            "street2": "",
+                            "city": "San Francisco",
+                            "state": "CA",
+                            "country": "US",
+                            "zip": "12345"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "No results": {
+                    "description": "",
+                    "value": []
+                  }
                 }
               }
-            },
-            "description": ""
+            }
           }
         }
       },
@@ -357,6 +508,156 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Order"
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "order_id": "O1A2B3C4D5",
+                      "created": "2023-01-14T04:30:11.222Z",
+                      "status": "completed",
+                      "recipient": {
+                        "first_name": "Alice",
+                        "last_name": "Jones",
+                        "email": "alice123@gmail.com",
+                        "phone": "123456789",
+                        "address": {
+                          "street1": "123 Street Road",
+                          "street2": "",
+                          "city": "San Francisco",
+                          "state": "CA",
+                          "country": "US",
+                          "zip": "12345"
+                        }
+                      },
+                      "kit_types": [
+                        "health_kit_1"
+                      ],
+                      "kits": [
+                        {
+                          "kit_id": "SPOTABCDEF",
+                          "type": "health_kit_1",
+                          "status": "registered",
+                          "events": [
+                            {
+                              "status": "preparing",
+                              "created": "2023-01-01T04:30:11.222Z"
+                            },
+                            {
+                              "status": "in_transit",
+                              "created": "2023-01-02T04:30:11.222Z"
+                            },
+                            {
+                              "status": "delivered",
+                              "created": "2023-01-03T04:30:11.222Z"
+                            },
+                            {
+                              "status": "registered",
+                              "created": "2023-01-04T04:30:11.222Z"
+                            }
+                          ],
+                          "shipment_to_customer": {
+                            "tracking_number": "9400123456789999876500",
+                            "carrier": "USPS",
+                            "created": "2023-01-01T04:30:11.222Z"
+                          },
+                          "registered_to": {
+                            "patient_id": "50d394e4-b32e-425a-8384-c13caad14429",
+                            "first_name": "Alice",
+                            "last_name": "Jones",
+                            "date_of_birth": "1990-01-01",
+                            "sex": "F",
+                            "email": "alice123@gmail.com",
+                            "phone": "123456789"
+                          },
+                          "sample": {
+                            "sample_id": "SPOTABCDEF",
+                            "status": "resulted",
+                            "events": [
+                              {
+                                "status": "awaiting_collection",
+                                "created": "2023-01-01T04:30:11.222Z"
+                              },
+                              {
+                                "status": "in_transit",
+                                "created": "2023-01-05T04:30:11.222Z"
+                              },
+                              {
+                                "status": "delivered",
+                                "created": "2023-01-06T04:30:11.222Z"
+                              },
+                              {
+                                "status": "received",
+                                "created": "2023-01-07T04:30:11.222Z"
+                              },
+                              {
+                                "status": "resulted",
+                                "created": "2023-01-08T04:30:11.222Z"
+                              }
+                            ],
+                            "type": "adx100_2",
+                            "shipments": [
+                              {
+                                "tracking_number": "string",
+                                "carrier": "string",
+                                "created": "2023-01-14T04:30:11.222Z"
+                              }
+                            ],
+                            "panel": "example_panel",
+                            "report": {
+                              "report_id": "a6107e6d-cfe3-4ba8-8a3e-6b68aabcc7b1",
+                              "results": [
+                                {
+                                  "result_type": "quantity",
+                                  "name": "HDL Cholesterol",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": 123,
+                                  "unit_of_measure": "mg/dL",
+                                  "range_minimum": 20,
+                                  "range_maximum": 200,
+                                  "comments": null
+                                },
+                                {
+                                  "result_type": "quantity",
+                                  "name": "Vitamin B12",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": "<10",
+                                  "unit_of_measure": "pg/mL",
+                                  "range_minimum": 20,
+                                  "range_maximum": 200,
+                                  "comments": null
+                                },
+                                {
+                                  "result_type": "reactivity",
+                                  "name": "Chlamydia",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": "negative",
+                                  "unit_of_measure": null,
+                                  "range_minimum": null,
+                                  "range_maximum": null,
+                                  "comments": null
+                                },
+                                {
+                                  "result_type": "DNA",
+                                  "name": "rs1234567",
+                                  "time_collected": "2023-01-14T04:30:11.222Z",
+                                  "result": "TT",
+                                  "unit_of_measure": null,
+                                  "range_minimum": null,
+                                  "range_maximum": null,
+                                  "comments": null
+                                }
+                              ],
+                              "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
+                              "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
+                              "date_collected": "2023-01-14T04:30:11.223Z",
+                              "date_received": "2023-01-14T04:30:11.223Z",
+                              "is_amendment": false
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             },
@@ -764,7 +1065,16 @@
                 }
               },
               "type": {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "adx100",
+                  "adx100_2",
+                  "adx100_4",
+                  "whatman903_10",
+                  "dry_transport_swab",
+                  "hemaspot_hf",
+                  "saliva_3"
+                ]
               },
               "shipments": {
                 "type": "array",
@@ -841,7 +1151,7 @@
             "format": "date-time"
           },
           "status": {
-            "type": "string"
+            "$ref": "#/components/schemas/OrderStatus"
           },
           "recipient": {
             "$ref": "#/components/schemas/Recipient"
@@ -859,6 +1169,15 @@
             }
           }
         }
+      },
+      "OrderStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "in_progress",
+          "completed",
+          "canceled"
+        ]
       },
       "PatientRegistrationTokenResponse": {
         "type": "object",
@@ -904,7 +1223,6 @@
         ]
       },
       "Report": {
-        "description": "",
         "nullable": true,
         "type": "object",
         "properties": {
@@ -913,23 +1231,20 @@
           },
           "results": {
             "description": "",
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/ResultBlood"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ResultQuantity"
+                },
+                {
+                  "$ref": "#/components/schemas/ResultReactivity"
+                },
+                {
                   "$ref": "#/components/schemas/ResultDNA"
                 }
-              }
-            ]
-          },
-          "panel": {
-            "type": "string"
+              ]
+            }
           },
           "pdf": {
             "type": "string",
@@ -939,33 +1254,6 @@
             "type": "string",
             "format": "uri"
           },
-          "individual": {
-            "type": "object",
-            "properties": {
-              "patient_id": {
-                "type": "string"
-              },
-              "first_name": {
-                "type": "string"
-              },
-              "last_name": {
-                "type": "string"
-              },
-              "date_of_birth": {
-                "type": "string",
-                "format": "date"
-              },
-              "sex": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "phone": {
-                "type": "string"
-              }
-            }
-          },
           "date_collected": {
             "type": "string",
             "format": "date-time"
@@ -973,16 +1261,19 @@
           "date_received": {
             "type": "string",
             "format": "date-time"
+          },
+          "is_amendment": {
+            "type": "boolean"
           }
         }
       },
-      "ResultBlood": {
+      "ResultQuantity": {
         "type": "object",
         "properties": {
           "result_type": {
             "type": "string",
             "enum": [
-              "blood"
+              "quantity"
             ]
           },
           "name": {
@@ -1005,19 +1296,63 @@
             ]
           },
           "unit_of_measure": {
-            "type": "string"
-          },
-          "result_level": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "range_minimum": {
-            "type": "string"
+            "type": "string",
+            "minimum": 0
           },
           "range_maximum": {
-            "type": "string"
+            "type": "number",
+            "minimum": 0
           },
           "comments": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ResultReactivity": {
+        "type": "object",
+        "properties": {
+          "result_type": {
+            "type": "string",
+            "enum": [
+              "reactivity"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The biomarker that was analyzed."
+          },
+          "time_collected": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "result": {
+            "description": "",
+            "type": "string",
+            "enum": [
+              "positive",
+              "negative"
+            ]
+          },
+          "unit_of_measure": {
+            "type": "string",
+            "nullable": true
+          },
+          "range_minimum": {
+            "type": "number",
+            "nullable": true
+          },
+          "range_maximum": {
+            "type": "number",
+            "nullable": true
+          },
+          "comments": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -1039,13 +1374,42 @@
             "format": "date-time"
           },
           "result": {
-            "type": "string"
+            "description": "",
+            "type": "string",
+            "enum": [
+              "TT",
+              "GG",
+              "CG",
+              "AG",
+              "CT",
+              "CC",
+              "AA",
+              "AT",
+              "AC",
+              "TA",
+              "TG",
+              "TC",
+              "GA",
+              "GT",
+              "GC",
+              "CA"
+            ]
           },
-          "reference": {
-            "type": "string"
+          "unit_of_measure": {
+            "type": "string",
+            "nullable": true
+          },
+          "range_minimum": {
+            "type": "number",
+            "nullable": true
+          },
+          "range_maximum": {
+            "type": "number",
+            "nullable": true
           },
           "comments": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
