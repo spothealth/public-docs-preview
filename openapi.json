@@ -1238,87 +1238,11 @@
                 }
               },
               "panel": {
-                "type": "string"
+                "type": "string",
+                "example": "OYOYOYOYOY"
               },
               "report": {
                 "$ref": "#/components/schemas/Report"
-              }
-            }
-          }
-        },
-        "example": {
-          "description": "",
-          "value": {
-            "kit_id": "string",
-            "type": "string",
-            "status": "string",
-            "events": [
-              {
-                "status": "preparing",
-                "created": "2023-01-14T03:34:01.736Z"
-              }
-            ],
-            "shipment_to_customer": {
-              "tracking_number": "string",
-              "carrier": "string",
-              "created": "2023-01-14T03:34:01.736Z"
-            },
-            "registered_to": {
-              "patient_id": "string",
-              "first_name": "string",
-              "last_name": "string",
-              "date_of_birth": "2023-01-14",
-              "sex": "string",
-              "email": "string",
-              "phone": "string"
-            },
-            "sample": {
-              "sample_id": "string",
-              "status": "string",
-              "events": [
-                {
-                  "status": "awaiting_collection",
-                  "created": "2023-01-14T03:34:01.736Z"
-                }
-              ],
-              "type": "string",
-              "shipments": [
-                {
-                  "tracking_number": "string",
-                  "carrier": "string",
-                  "created": "2023-01-14T03:34:01.736Z"
-                }
-              ],
-              "panel": "string",
-              "report": {
-                "report_id": "da8d7f03-61ae-499c-8cb4-fa8629e2dad8",
-                "results": [
-                  {
-                    "result_type": "blood",
-                    "name": "string",
-                    "time_collected": "2023-01-14T03:34:01.736Z",
-                    "result": "string",
-                    "unit_of_measure": "string",
-                    "result_level": "string",
-                    "range_minimum": "string",
-                    "range_maximum": "string",
-                    "comments": "string"
-                  }
-                ],
-                "panel": "string",
-                "pdf": "string",
-                "txt": "string",
-                "individual": {
-                  "patient_id": "string",
-                  "first_name": "string",
-                  "last_name": "string",
-                  "date_of_birth": "2023-01-14",
-                  "sex": "string",
-                  "email": "string",
-                  "phone": "string"
-                },
-                "date_collected": "2023-01-14T03:34:01.736Z",
-                "date_received": "2023-01-14T03:34:01.736Z"
               }
             }
           }
