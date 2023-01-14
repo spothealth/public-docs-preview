@@ -1,5 +1,11 @@
 {
   "openapi": "3.0.3",
+  "servers": [
+    {
+      "url": "https://spotdx.com",
+      "description": "Production"
+    }
+  ],
   "info": {
     "title": "Spot API v2",
     "version": "2.0.0",
@@ -564,12 +570,7 @@
             "description": "A list of all the kit types to place in the order."
           },
           "recipient": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Recipient"
-              }
-            ],
-            "description": "Dictionary containing the recipient's personal information."
+            "$ref": "#/components/schemas/Recipient"
           },
           "client_order_id": {
             "type": "string",
