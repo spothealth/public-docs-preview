@@ -134,7 +134,7 @@
                     }
                   }
                 },
-                "examples": {
+                "example": {
                   "Success": {
                     "summary": "Success",
                     "description": "",
@@ -188,7 +188,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Kit"
                 },
-                "examples": {
+                "example": {
                   "Complete kit": {
                     "description": "",
                     "value": {
@@ -395,7 +395,7 @@
                     }
                   }
                 },
-                "examples": {
+                "example": {
                   "Success": {
                     "description": "",
                     "value": [
@@ -510,7 +510,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Order"
                 },
-                "examples": {
+                "example": {
                   "Success": {
                     "value": {
                       "order_id": "O1A2B3C4D5",
@@ -731,7 +731,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Order"
                 },
-                "examples": {
+                "example": {
                   "Success": {
                     "value": {
                       "order_id": "O1A2B3C4D5",
