@@ -1,73 +1,123 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Spot API",
-    "version": "1.0.0",
+    "title": "Spot API v2",
+    "version": "2.0.0",
     "description": "API Docs for Spot API"
   },
   "paths": {
-    "/api/v1/kits/": {
+    "/api/v2/kits/": {
       "get": {
-        "operationId": "api_v1_kits_retrieve",
-        "description": "Get a list of kits associated with the user making the request. Providing any query params will further filter the results to only those that match the query params.",
+        "operationId": "api_v2_list_kits",
+        "description": "Query your kits and return a summary, sorted by creation date. Providing any query params will further filter the results to only those that match the query params.",
         "parameters": [
           {
             "in": "query",
+            "name": "results",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "The initial index from which to return the results.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "email",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve kits associated with this email address."
           },
           {
             "in": "query",
             "name": "first_name",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve kits associated with this first name."
           },
           {
             "in": "query",
             "name": "kit_type",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve kits associated with this kit type. Case insensitive."
           },
           {
             "in": "query",
             "name": "last_name",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve kits associated with this last name."
           },
           {
             "in": "query",
             "name": "phone",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve kits associated with this phone number."
+          },
+          {
+            "in": "query",
+            "name": "kit_status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve kits with this status. Case insensitive."
+          },
+          {
+            "in": "query",
+            "name": "sample_status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve kits whose sample has this status. Case insensitive."
           }
         ],
-        "security": [{ "tokenAuth": [] }],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleKitsList": {
-                    "value": [
-                      {
-                        "kit_id": "SPOTKIT01",
-                        "kit_type": "lipid_panel",
-                        "order_id": "SPOTORDER01"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "kit_id": {
+                        "type": "string"
                       },
-                      {
-                        "kit_id": "SPOTKIT02",
-                        "kit_type": "lipid_panel",
-                        "order_id": "SPOTORDER02"
+                      "kit_type": {
+                        "type": "string"
+                      },
+                      "order_id": {
+                        "type": "string"
+                      },
+                      "kit_status": {
+                        "type": "string"
+                      },
+                      "sample_status": {
+                        "type": "string"
                       }
-                    ],
-                    "summary": "Example Kits list",
-                    "description": "Getting kits list"
+                    }
                   }
                 }
               }
@@ -77,126 +127,32 @@
         }
       }
     },
-    "/api/v1/kits/{public_id}/": {
+    "/api/v2/kits/{public_id}/": {
       "get": {
-        "operationId": "api_v1_kits_retrieve_2",
+        "operationId": "api_v2_get_kit",
         "description": "Returns an individual kit with the given kit id.",
         "parameters": [
           {
-            "in": "query",
-            "name": "id",
-            "schema": { "type": "string" },
-            "description": "ID of the kit to retrieve."
-          },
-          {
             "in": "path",
             "name": "public_id",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "ID of the kit to retrieve.",
             "required": true
           }
         ],
-        "security": [{ "tokenAuth": [] }],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleKitDetail": {
-                    "value": {
-                      "kit_id": "SPOTW43R",
-                      "type": "spot_vitamin_kit",
-                      "status": "delivered",
-                      "events": [
-                        {
-                          "status": "preparing",
-                          "created": "2022-07-13T19:43:57Z"
-                        },
-                        {
-                          "status": "in_transit",
-                          "created": "2022-07-13T19:43:57Z"
-                        },
-                        {
-                          "status": "delivered",
-                          "created": "2022-07-13T19:43:57Z"
-                        }
-                      ],
-                      "shipment_to_customer": {
-                        "tracking_number": "1Z12345E0205271688",
-                        "carrier": "USPS",
-                        "created": "2022-07-13T19:43:57Z"
-                      },
-                      "registered_to": {
-                        "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                        "first_name": "John",
-                        "last_name": "Doe",
-                        "date_of_birth": "1999-11-08",
-                        "sex": "M",
-                        "email": "johndoe@example.com",
-                        "phone": "2552552555"
-                      },
-                      "panels": ["diabetes_panel"],
-                      "samples": [
-                        {
-                          "sample_id": "SPOTDYJCMZ",
-                          "status": "awaiting_collection",
-                          "events": [
-                            {
-                              "status": "awaiting_collection",
-                              "created": "2022-10-26T20:51:17.356Z"
-                            }
-                          ],
-                          "type": "adx100",
-                          "shipments": [
-                            {
-                              "tracking_number": "1Z12345E0205271688",
-                              "carrier": "USPS",
-                              "created": "2022-07-13T19:43:57Z"
-                            }
-                          ],
-                          "panel": "lipid_panel",
-                          "report": {
-                            "report_id": "f0e5a607-5b52-4d7c-a3f2-c40772d41482",
-                            "results": [
-                              {
-                                "name": "LDL",
-                                "time_collected": "2022-10-26T20:51:17.356Z",
-                                "result": "100",
-                                "unit_of_measure": "mg/dL",
-                                "result_level": "normal",
-                                "range_minimum": "0",
-                                "range_maximum": "100",
-                                "comments": "This is a comment"
-                              }
-                            ],
-                            "panel": "lipid_panel",
-                            "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
-                            "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
-                            "individual": {
-                              "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                              "first_name": "John",
-                              "last_name": "Doe",
-                              "date_of_birth": "1999-11-08",
-                              "sex": "M",
-                              "email": "johndoe@gmail.com",
-                              "phone": "2552552555"
-                            },
-                            "date_collected": "2022-10-26T20:51:17.356Z",
-                            "date_received": "2022-10-26T20:51:17.356Z",
-                            "date_resulted": "2022-10-26T20:51:17.356Z",
-                            "rejection_reason": null
-                          }
-                        }
-                      ]
-                    },
-                    "summary": "Example Kit detail",
-                    "description": "Getting Kit detail"
-                  }
+                  "$ref": "#/components/schemas/Kit"
                 }
               }
             },
@@ -209,12 +165,6 @@
                   "type": "object",
                   "additionalProperties": {},
                   "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleMissingPathAndQueryParameters": {
-                    "value": { "error": "Missing `id` parameter." },
-                    "summary": "Example Missing path and query parameters"
-                  }
                 }
               }
             },
@@ -227,14 +177,6 @@
                   "type": "object",
                   "additionalProperties": {},
                   "description": "Unspecified response body"
-                },
-                "examples": {
-                  "NoKitFound": {
-                    "value": {
-                      "error": "No kit exists with the provided `id`."
-                    },
-                    "summary": "No Kit found"
-                  }
                 }
               }
             },
@@ -243,205 +185,7 @@
         }
       }
     },
-    "/api/v1/order/": {
-      "post": {
-        "operationId": "api_v1_order_create",
-        "description": "Create an order for delivering kits to a client, which will be created with a status of 'pending'.The order will be created with the user making the request as the 'placed_by' user.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateOrder" },
-              "examples": {
-                "ExampleCreateOrderRequest": {
-                  "value": {
-                    "recipient": {
-                      "first_name": "John",
-                      "last_name": "Doe",
-                      "address": {
-                        "street1": "123 Main St",
-                        "street2": "",
-                        "city": "Cincinnati",
-                        "state": "OH",
-                        "zip": "45202"
-                      },
-                      "email": "johndoe@example.com",
-                      "phone": "(201) 555-0123"
-                    },
-                    "kit_types": ["demo_vitamin_kit"],
-                    "client_order_id": "SPOTTESTCLIENTORDER01",
-                    "client_customer_id": "SPOTTESTCLIENTCUSTOMER01"
-                  },
-                  "summary": "Example Create Order Request",
-                  "description": "Creating an order."
-                }
-              }
-            },
-            "application/x-www-form-urlencoded": {
-              "schema": { "$ref": "#/components/schemas/CreateOrder" }
-            },
-            "multipart/form-data": {
-              "schema": { "$ref": "#/components/schemas/CreateOrder" }
-            }
-          },
-          "required": true
-        },
-        "security": [{ "tokenAuth": [] }],
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateOrderResponse"
-                },
-                "examples": {
-                  "ExampleCreateOrderResponse": {
-                    "value": {
-                      "order_id": "SPOTTESTORDER01",
-                      "created": "2022-07-13T19:43:57Z",
-                      "status": "pending",
-                      "recipient": {
-                        "first_name": "John",
-                        "last_name": "Doe",
-                        "address": {
-                          "street1": "123 Main St",
-                          "street2": "",
-                          "city": "Cincinnati",
-                          "state": "OH",
-                          "zip": "45202"
-                        },
-                        "email": "johndoe@example.com",
-                        "phone": "(201) 555-0123"
-                      },
-                      "kit_types": ["demo_vitamin_kit"],
-                      "kits": [
-                        {
-                          "kit_id": "SPOTTESTKIT01",
-                          "order_id": "SPOTTESTORDER01",
-                          "type": "demo_rootine_vitamin_kit",
-                          "status": "pending",
-                          "events": [
-                            {
-                              "status": "pending",
-                              "created": "2022-07-13T19:43:57Z"
-                            }
-                          ],
-                          "shipment_to_customer": {
-                            "tracking_number": "1Z12345E0205271688",
-                            "carrier": "USPS",
-                            "created": "2022-07-13T19:43:57Z"
-                          },
-                          "registered_to": {
-                            "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                            "first_name": "John",
-                            "last_name": "Doe",
-                            "date_of_birth": "1999-11-08",
-                            "sex": "M",
-                            "email": "johndoe@example.com",
-                            "phone": "2552552555"
-                          },
-                          "panels": ["demo_rootine_vitamin_panel"],
-                          "samples": [
-                            {
-                              "sample_id": "SPOTTESTSAMPLE01",
-                              "status": "delivered",
-                              "events": [
-                                {
-                                  "status": "awaiting_collection",
-                                  "created": "2022-07-13T19:43:57Z"
-                                },
-                                {
-                                  "status": "collected",
-                                  "created": "2022-07-13T19:43:57Z"
-                                },
-                                {
-                                  "status": "placed_in_mail",
-                                  "created": "2022-07-13T19:43:57Z"
-                                },
-                                {
-                                  "status": "in_transit",
-                                  "created": "2022-07-13T19:43:57Z"
-                                },
-                                {
-                                  "status": "delivered",
-                                  "created": "2022-10-26T20:51:17.356Z"
-                                }
-                              ],
-                              "type": "adx100",
-                              "shipments": [
-                                {
-                                  "tracking_number": "1Z12345E0205271688",
-                                  "carrier": "USPS",
-                                  "created": "2022-07-13T19:43:57Z"
-                                }
-                              ],
-                              "panel": "demo_rootine_vitamin_panel",
-                              "report": {
-                                "report_id": "f0e5a607-5b52-4d7c-a3f2-c40772d41482",
-                                "results": [
-                                  {
-                                    "name": "LDL",
-                                    "time_collected": "2022-10-26T20:51:17.356Z",
-                                    "result": "100",
-                                    "unit_of_measure": "mg/dL",
-                                    "result_level": "normal",
-                                    "range_minimum": "0",
-                                    "range_maximum": "100",
-                                    "comments": "This is a comment"
-                                  }
-                                ],
-                                "panel": "demo_rootine_vitamin_panel",
-                                "pdf": "https://app.spotkits.com/results/.pdf",
-                                "txt": "https://app.spotkits.com/results/.txt",
-                                "individual": {
-                                  "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                                  "first_name": "John",
-                                  "last_name": "Doe",
-                                  "date_of_birth": "1999-11-08",
-                                  "sex": "M",
-                                  "email": "johndoe@gmail.com",
-                                  "phone": "2552552555"
-                                },
-                                "date_collected": "2022-10-26T20:51:17.356Z",
-                                "date_received": "2022-10-26T20:51:17.356Z",
-                                "date_resulted": "2022-10-26T20:51:17.356Z",
-                                "rejection_reason": null
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "client_order_id": "SPOTTESTCLIENTORDER01",
-                      "client_customer_id": "SPOTTESTCLIENTCUSTOMER01"
-                    },
-                    "summary": "Example Create Order Response",
-                    "description": "Order successfully created."
-                  }
-                }
-              }
-            },
-            "description": ""
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/BadRequest" },
-                "examples": {
-                  "ExampleBadRequest": {
-                    "value": {
-                      "error": "Kit type not found: NONEXISTENT_KIT_TYPE"
-                    },
-                    "summary": "Example Bad Request",
-                    "description": "Creating an order for a kit type that does not exist"
-                  }
-                }
-              }
-            },
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/orders/": {
+    "/api/v2/orders/": {
       "get": {
         "operationId": "api_v1_orders_retrieve",
         "description": "Get a list of orders associated with the user making the request. Providing any query params will further filter the results to only those that match the query params.",
@@ -449,25 +193,33 @@
           {
             "in": "query",
             "name": "email",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve orders associated with this email address."
           },
           {
             "in": "query",
             "name": "first_name",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve orders associated with this first name."
           },
           {
             "in": "query",
             "name": "last_name",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve orders associated with this last name."
           },
           {
             "in": "query",
             "name": "phone",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Only retrieve orders associated with this phone number."
           },
           {
@@ -475,12 +227,21 @@
             "name": "status",
             "schema": {
               "type": "string",
-              "enum": ["canceled", "completed", "in_progress", "pending"]
+              "enum": [
+                "canceled",
+                "completed",
+                "in_progress",
+                "pending"
+              ]
             },
             "description": "Only retrieve orders that have this status."
           }
         ],
-        "security": [{ "tokenAuth": [] }],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -489,26 +250,57 @@
                   "type": "object",
                   "additionalProperties": {},
                   "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleOrdersList": {
-                    "value": [
-                      {
-                        "order_id": "SPOTORDER01",
-                        "created": "2022-11-16T19:44:42.610Z",
-                        "status": "pending",
-                        "details": "https://app.spotdx.com/orders/e6411a05-39ff-43ca-833b-c94a2a77774c/"
-                      },
-                      {
-                        "order_id": "SPOTORDER02",
-                        "created": "2022-10-09T18:27:25.847Z",
-                        "status": "completed",
-                        "details": "https://app.spotdx.com/orders/a156c87-54ad-56ee-756a-ab54d66cef5b/"
-                      }
-                    ],
-                    "summary": "Example Orders List",
-                    "description": "Getting orders list"
-                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "api_v1_order_create",
+        "description": "Create an order for delivering kits to a client, which will be created with a status of 'pending'.The order will be created with the user making the request as the 'placed_by' user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrder"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrder"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrder"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
                 }
               }
             },
@@ -517,7 +309,7 @@
         }
       }
     },
-    "/api/v1/orders/{public_id}/": {
+    "/api/v2/orders/{public_id}/": {
       "get": {
         "operationId": "api_v1_orders_retrieve_2",
         "description": "Retrieve a singular order matching the provided ID.",
@@ -525,272 +317,26 @@
           {
             "in": "query",
             "name": "order_id",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "The ID of the order to retrieve."
           },
           {
             "in": "path",
             "name": "public_id",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "The ID of the order to retrieve.",
             "required": true
           }
         ],
-        "security": [{ "tokenAuth": [] }],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleOrderStatus": {
-                    "value": {
-                      "order_id": "SPOTTESTORDER01",
-                      "created": "2022-07-13T19:43:57Z",
-                      "status": "pending",
-                      "recipient": {
-                        "first_name": "John",
-                        "last_name": "Doe",
-                        "address": {
-                          "street1": "123 Main St",
-                          "street2": "",
-                          "city": "Cincinnati",
-                          "state": "OH",
-                          "zip": "45202"
-                        },
-                        "email": "johndoe@example.com",
-                        "phone": "5135551212"
-                      },
-                      "kit_types": ["demo_rootine_vitamin_kit"],
-                      "kits": [
-                        {
-                          "kit_id": "SPOTTESTKIT01",
-                          "order_id": "SPOTTESTORDER01",
-                          "type": "demo_rootine_vitamin_kit",
-                          "status": "pending",
-                          "events": [{ "status": "pending", "created": "" }],
-                          "shipment_to_customer": {
-                            "tracking_number": "1Z12345E0205271688",
-                            "carrier": "USPS",
-                            "created": "2022-07-13T19:43:57Z"
-                          },
-                          "registered_to": {
-                            "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                            "first_name": "John",
-                            "last_name": "Doe",
-                            "date_of_birth": "1999-11-08",
-                            "sex": "M",
-                            "email": "johndoe@example.com",
-                            "phone": "2552552555"
-                          },
-                          "panels": ["demo_rootine_vitamin_panel"],
-                          "samples": [
-                            {
-                              "sample_id": "SPOTTESTSAMPLE01",
-                              "status": "delivered",
-                              "events": [
-                                {
-                                  "status": "delivered",
-                                  "created": "2022-10-26T20:51:17.356Z"
-                                }
-                              ],
-                              "type": "adx100",
-                              "shipments": [
-                                {
-                                  "tracking_number": "1Z12345E0205271688",
-                                  "carrier": "USPS",
-                                  "created": "2022-07-13T19:43:57Z"
-                                }
-                              ],
-                              "panel": "demo_rootine_vitamin_panel",
-                              "report": {
-                                "report_id": "f0e5a607-5b52-4d7c-a3f2-c40772d41482",
-                                "results": [
-                                  {
-                                    "name": "LDL",
-                                    "time_collected": "2022-10-26T20:51:17.356Z",
-                                    "result": "100",
-                                    "unit_of_measure": "mg/dL",
-                                    "result_level": "normal",
-                                    "range_minimum": "0",
-                                    "range_maximum": "100",
-                                    "comments": "This is a comment"
-                                  }
-                                ],
-                                "panel": "demo_rootine_vitamin_panel",
-                                "pdf": "https://app.spotkits.com/results/.pdf",
-                                "txt": "https://app.spotkits.com/results/.txt",
-                                "individual": {
-                                  "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                                  "first_name": "John",
-                                  "last_name": "Doe",
-                                  "date_of_birth": "1999-11-08",
-                                  "sex": "M",
-                                  "email": "johndoe@gmail.com",
-                                  "phone": "2552552555"
-                                },
-                                "date_collected": "2022-10-26T20:51:17.356Z",
-                                "date_received": "2022-10-26T20:51:17.356Z",
-                                "date_resulted": "2022-10-26T20:51:17.356Z",
-                                "rejection_reason": null
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "client_order_id": "",
-                      "client_customer_id": ""
-                    },
-                    "summary": "Example Order Status",
-                    "description": "Getting order status"
-                  }
-                }
-              }
-            },
-            "description": ""
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleOrderStatusBadRequest": {
-                    "value": { "error": "Missing order_id parameter." },
-                    "summary": "Example Order Status Bad Request"
-                  }
-                }
-              }
-            },
-            "description": ""
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleOrderStatusNotFound": {
-                    "value": {
-                      "error": "No order exists with the provided order_id."
-                    },
-                    "summary": "Example Order Status Not Found"
-                  }
-                }
-              }
-            },
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/patient/": {
-      "post": {
-        "operationId": "api_v1_patient_create",
-        "description": "Create a new patient.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreatePatient" },
-              "examples": {
-                "ExamplePatientOrder": {
-                  "value": {
-                    "first_name": "John",
-                    "last_name": "Doe",
-                    "email": "johndoe@example.com",
-                    "phone": "(201) 555-0123",
-                    "sex": "M",
-                    "date_of_birth": "1999-11-08"
-                  },
-                  "summary": "Example Patient Order",
-                  "description": "Creating a patient"
-                }
-              }
-            },
-            "application/x-www-form-urlencoded": {
-              "schema": { "$ref": "#/components/schemas/CreatePatient" }
-            },
-            "multipart/form-data": {
-              "schema": { "$ref": "#/components/schemas/CreatePatient" }
-            }
-          },
-          "required": true
-        },
-        "security": [{ "tokenAuth": [] }],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExamplePatientOrder": {
-                    "value": {
-                      "patient_id": "f5e3ba70-d1ed-4e06-83ed-71b2039a38c0"
-                    },
-                    "summary": "Example Patient Order",
-                    "description": "Patient created successfully."
-                  }
-                }
-              }
-            },
-            "description": ""
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/BadRequest" },
-                "examples": {
-                  "Example400Response": {
-                    "value": {
-                      "error": {
-                        "date_of_birth": ["Enter a valid date."],
-                        "sex": [
-                          "Select a valid choice. None is not one of the available choices."
-                        ],
-                        "email": ["Enter a valid email address."],
-                        "phone": [
-                          "Enter a valid phone number (e.g. (201) 555-0123) or a number with an international call prefix."
-                        ]
-                      }
-                    },
-                    "summary": "Example 400 Response",
-                    "description": "Patient was unable to be created due to errors."
-                  }
-                }
-              }
-            },
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/status/": {
-      "get": {
-        "operationId": "api_v1_status_retrieve",
-        "description": "Retrieve a singular order matching the provided ID.",
-        "parameters": [
+        "security": [
           {
-            "in": "query",
-            "name": "order_id",
-            "schema": { "type": "string" },
-            "description": "The ID of the order to retrieve."
+            "tokenAuth": []
           }
         ],
-        "security": [{ "tokenAuth": [] }],
         "responses": {
           "200": {
             "content": {
@@ -799,156 +345,35 @@
                   "type": "object",
                   "additionalProperties": {},
                   "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleOrderStatus": {
-                    "value": {
-                      "order_id": "SPOTTESTORDER01",
-                      "created": "2022-07-13T19:43:57Z",
-                      "status": "pending",
-                      "recipient": {
-                        "first_name": "John",
-                        "last_name": "Doe",
-                        "address": {
-                          "street1": "123 Main St",
-                          "street2": "",
-                          "city": "Cincinnati",
-                          "state": "OH",
-                          "zip": "45202"
-                        },
-                        "email": "johndoe@example.com",
-                        "phone": "5135551212"
-                      },
-                      "kit_types": ["demo_rootine_vitamin_kit"],
-                      "kits": [
-                        {
-                          "kit_id": "SPOTTESTKIT01",
-                          "order_id": "SPOTTESTORDER01",
-                          "type": "demo_rootine_vitamin_kit",
-                          "status": "pending",
-                          "events": [{ "status": "pending", "created": "" }],
-                          "shipment_to_customer": {
-                            "tracking_number": "1Z12345E0205271688",
-                            "carrier": "USPS",
-                            "created": "2022-07-13T19:43:57Z"
-                          },
-                          "registered_to": {
-                            "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                            "first_name": "John",
-                            "last_name": "Doe",
-                            "date_of_birth": "1999-11-08",
-                            "sex": "M",
-                            "email": "johndoe@example.com",
-                            "phone": "2552552555"
-                          },
-                          "panels": ["demo_rootine_vitamin_panel"],
-                          "samples": [
-                            {
-                              "sample_id": "SPOTTESTSAMPLE01",
-                              "status": "delivered",
-                              "events": [
-                                {
-                                  "status": "delivered",
-                                  "created": "2022-10-26T20:51:17.356Z"
-                                }
-                              ],
-                              "type": "adx100",
-                              "shipments": [
-                                {
-                                  "tracking_number": "1Z12345E0205271688",
-                                  "carrier": "USPS",
-                                  "created": "2022-07-13T19:43:57Z"
-                                }
-                              ],
-                              "panel": "demo_rootine_vitamin_panel",
-                              "report": {
-                                "report_id": "f0e5a607-5b52-4d7c-a3f2-c40772d41482",
-                                "results": [
-                                  {
-                                    "name": "LDL",
-                                    "time_collected": "2022-10-26T20:51:17.356Z",
-                                    "result": "100",
-                                    "unit_of_measure": "mg/dL",
-                                    "result_level": "normal",
-                                    "range_minimum": "0",
-                                    "range_maximum": "100",
-                                    "comments": "This is a comment"
-                                  }
-                                ],
-                                "panel": "demo_rootine_vitamin_panel",
-                                "pdf": "https://app.spotkits.com/results/.pdf",
-                                "txt": "https://app.spotkits.com/results/.txt",
-                                "individual": {
-                                  "patient_id": "e6411a05-39ff-43ca-833b-c94a2a77774c",
-                                  "first_name": "John",
-                                  "last_name": "Doe",
-                                  "date_of_birth": "1999-11-08",
-                                  "sex": "M",
-                                  "email": "johndoe@gmail.com",
-                                  "phone": "2552552555"
-                                },
-                                "date_collected": "2022-10-26T20:51:17.356Z",
-                                "date_received": "2022-10-26T20:51:17.356Z",
-                                "date_resulted": "2022-10-26T20:51:17.356Z",
-                                "rejection_reason": null
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "client_order_id": "",
-                      "client_customer_id": ""
-                    },
-                    "summary": "Example Order Status",
-                    "description": "Getting order status"
-                  }
                 }
               }
             },
             "description": ""
           },
           "400": {
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleOrderStatusBadRequest": {
-                    "value": { "error": "Missing order_id parameter." },
-                    "summary": "Example Order Status Bad Request"
-                  }
+                  "$ref": "#/components/schemas/BadRequest"
                 }
               }
-            },
-            "description": ""
+            }
           },
           "404": {
+            "description": "Order not found",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {},
-                  "description": "Unspecified response body"
-                },
-                "examples": {
-                  "ExampleOrderStatusNotFound": {
-                    "value": {
-                      "error": "No order exists with the provided order_id."
-                    },
-                    "summary": "Example Order Status Not Found"
-                  }
+                  "$ref": "#/components/schemas/NotFound"
                 }
               }
-            },
-            "description": ""
+            }
           }
         }
       }
     },
-    "/api/v1/tokens/patient_registration/": {
+    "/api/v2/tokens/patient_registration/": {
       "post": {
         "operationId": "api_v1_tokens_patient_registration_create",
         "description": "Generate a one-time-use registration token for a patient with a lifetime of 10 minutes.",
@@ -957,15 +382,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreatePatientRegistrationToken"
-              },
-              "examples": {
-                "ExampleRequest": {
-                  "value": {
-                    "patient_id": "f5e3ba70-d1ed-4e06-83ed-71b2039a38c0"
-                  },
-                  "summary": "Example request",
-                  "description": "Generating a one-time-use registration token for a patient."
-                }
               }
             },
             "application/x-www-form-urlencoded": {
@@ -981,22 +397,17 @@
           },
           "required": true
         },
-        "security": [{ "tokenAuth": [] }],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
         "responses": {
           "201": {
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PatientRegistrationTokenResponse"
-                },
-                "examples": {
-                  "ExampleResponse": {
-                    "value": {
-                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYXgiOjEsInN1YiI6InBhdGllbnRfcmVnaXN0cmF0aW9uIiwibW9kIjoibiIsImp0aSI6MSwiZXhwIjoxNjY5OTE0MDg2LCJpYXQiOjE2Njk5MTM0ODZ9.RaZQH4xjRtKZp_2fZoeiqQI2TRyRql0VvHnug9JnIgE"
-                    },
-                    "summary": "Example response",
-                    "description": "Returning a one-time-use registration token for a patient."
-                  }
                 }
               }
             },
@@ -1005,15 +416,8 @@
           "400": {
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/BadRequest" },
-                "examples": {
-                  "ExampleErrorResponse": {
-                    "value": {
-                      "error": "Missing request parameters: patient_id"
-                    },
-                    "summary": "Example error response",
-                    "description": "Missing request parameters."
-                  }
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
                 }
               }
             },
@@ -1022,15 +426,8 @@
           "404": {
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/NotFound" },
-                "examples": {
-                  "ExampleErrorResponse": {
-                    "value": {
-                      "error": "Patient ID not found: f5e3ba70-d1ed-4e06-83ed-71b2039a48c0"
-                    },
-                    "summary": "Example error response",
-                    "description": "Patient not found."
-                  }
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
                 }
               }
             },
@@ -1050,8 +447,15 @@
             "description": "Recipient's address."
           },
           "street2": {
-            "type": "string",
-            "description": "(Optional) Recipient's second address."
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Second line of recipient's address."
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "city": {
             "type": "string",
@@ -1061,33 +465,86 @@
             "type": "string",
             "description": "Recipient's state of residence."
           },
-          "zip": { "type": "string", "description": "Recipient's zip code." }
+          "country": {
+            "type": "string",
+            "description": "Recipient's country of residence.",
+            "enum": [
+              "US",
+              "CA"
+            ]
+          },
+          "zip": {
+            "type": "string",
+            "description": "Recipient's zip code."
+          }
         },
-        "required": ["city", "state", "street1", "zip"]
+        "required": [
+          "city",
+          "state",
+          "street1",
+          "zip"
+        ]
       },
       "AssignKits": {
         "type": "object",
         "properties": {
-          "order_id": { "type": "string" },
-          "kit_ids": { "type": "array", "items": { "type": "string" } },
-          "bypass_address_validation": { "type": "boolean" }
+          "order_id": {
+            "type": "string"
+          },
+          "kit_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "bypass_address_validation": {
+            "type": "boolean"
+          }
         },
-        "required": ["kit_ids", "order_id"]
+        "required": [
+          "kit_ids",
+          "order_id"
+        ]
       },
       "BadRequest": {
         "type": "object",
-        "properties": { "error": { "type": "string", "readOnly": true } },
-        "required": ["error"]
+        "properties": {
+          "error": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "error"
+        ]
       },
       "BuildKit": {
         "type": "object",
         "properties": {
-          "kit_public_id": { "type": "string", "maxLength": 255 },
-          "sample_public_id": { "type": "string", "maxLength": 255 },
-          "tracking_number": { "type": "string", "maxLength": 255 },
-          "kit_type_public_id": { "type": "string", "maxLength": 255 },
-          "lot_public_id": { "type": "string", "maxLength": 255 },
-          "assemblers": { "type": "string", "maxLength": 255 }
+          "kit_public_id": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "sample_public_id": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "tracking_number": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "kit_type_public_id": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "lot_public_id": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "assemblers": {
+            "type": "string",
+            "maxLength": 255
+          }
         },
         "required": [
           "kit_public_id",
@@ -1101,11 +558,17 @@
         "properties": {
           "kit_types": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "description": "A list of all the kit types to place in the order."
           },
           "recipient": {
-            "allOf": [{ "$ref": "#/components/schemas/Recipient" }],
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Recipient"
+              }
+            ],
             "description": "Dictionary containing the recipient's personal information."
           },
           "client_order_id": {
@@ -1117,27 +580,50 @@
             "description": "Optional metadata field for client use."
           }
         },
-        "required": ["kit_types", "recipient"]
+        "required": [
+          "kit_types",
+          "recipient"
+        ]
       },
       "CreateOrderResponse": {
         "type": "object",
         "properties": {
-          "kit_id": { "type": "string" },
-          "type": { "type": "string" },
-          "status": { "type": "string" },
+          "kit_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
           "events": {
             "type": "array",
-            "items": { "type": "object", "additionalProperties": {} }
+            "items": {
+              "type": "object",
+              "additionalProperties": {}
+            }
           },
           "shipment_to_customer": {
             "type": "object",
             "additionalProperties": {}
           },
-          "registered_to": { "type": "object", "additionalProperties": {} },
-          "panels": { "type": "array", "items": { "type": "string" } },
+          "registered_to": {
+            "type": "object",
+            "additionalProperties": {}
+          },
+          "panels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "samples": {
             "type": "array",
-            "items": { "type": "object", "additionalProperties": {} }
+            "items": {
+              "type": "object",
+              "additionalProperties": {}
+            }
           }
         },
         "required": [
@@ -1181,7 +667,13 @@
             "description": "The date of birth of the patient to be created."
           }
         },
-        "required": ["date_of_birth", "email", "first_name", "last_name", "sex"]
+        "required": [
+          "date_of_birth",
+          "email",
+          "first_name",
+          "last_name",
+          "sex"
+        ]
       },
       "CreatePatientRegistrationToken": {
         "type": "object",
@@ -1191,17 +683,201 @@
             "description": "UUID of the patient."
           }
         },
-        "required": ["patient_id"]
+        "required": [
+          "patient_id"
+        ]
+      },
+      "Kit": {
+        "type": "object",
+        "properties": {
+          "kit_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KitEvent"
+            }
+          },
+          "shipment_to_customer": {
+            "type": "object",
+            "properties": {
+              "tracking_number": {
+                "type": "string"
+              },
+              "carrier": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "registered_to": {
+            "type": "object",
+            "properties": {
+              "patient_id": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "date_of_birth": {
+                "type": "string",
+                "format": "date"
+              },
+              "sex": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              }
+            }
+          },
+          "sample": {
+            "type": "object",
+            "properties": {
+              "sample_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SampleEvent"
+                }
+              },
+              "type": {
+                "type": "string"
+              },
+              "shipments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "tracking_number": {
+                      "type": "string"
+                    },
+                    "carrier": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              },
+              "panel": {
+                "type": "string"
+              },
+              "report": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Report"
+                  },
+                  {
+                    "type": "null",
+                    "description": "No report has been generated for this sample."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "KitEvent": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/KitStatus"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "KitStatus": {
+        "type": "string",
+        "description": "The new status of the kit.",
+        "enum": [
+          "preparing",
+          "in_transit",
+          "delivered",
+          "delivery_exception",
+          "registered",
+          "cancelled"
+        ]
       },
       "NotFound": {
         "type": "object",
-        "properties": { "error": { "type": "string", "readOnly": true } },
-        "required": ["error"]
+        "properties": {
+          "error": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/Recipient"
+          },
+          "kit_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Kit"
+            }
+          }
+        }
       },
       "PatientRegistrationTokenResponse": {
         "type": "object",
-        "properties": { "token": { "type": "string", "readOnly": true } },
-        "required": ["token"]
+        "properties": {
+          "token": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "token"
+        ]
       },
       "Recipient": {
         "type": "object",
@@ -1214,30 +890,222 @@
             "type": "string",
             "description": "Recipient's last name."
           },
-          "email": { "type": "string", "description": "Recipient's email." },
+          "email": {
+            "type": "string",
+            "description": "Recipient's email."
+          },
           "phone": {
             "type": "string",
             "description": "Recipient's phone number, as a string."
           },
           "address": {
-            "allOf": [{ "$ref": "#/components/schemas/Address" }],
-            "description": "Dictionary with the recipient's address details."
+            "$ref": "#/components/schemas/Address"
           }
         },
-        "required": ["address", "email", "first_name", "last_name", "phone"]
+        "required": [
+          "address",
+          "email",
+          "first_name",
+          "last_name",
+          "phone"
+        ]
+      },
+      "Report": {
+        "type": "object",
+        "properties": {
+          "report_id": {
+            "type": "string"
+          },
+          "results": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ResultBlood"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ResultDNA"
+                }
+              }
+            ]
+          },
+          "panel": {
+            "type": "string"
+          },
+          "pdf": {
+            "type": "string",
+            "format": "uri"
+          },
+          "txt": {
+            "type": "string",
+            "format": "uri"
+          },
+          "individual": {
+            "type": "object",
+            "properties": {
+              "patient_id": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "date_of_birth": {
+                "type": "string",
+                "format": "date"
+              },
+              "sex": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              }
+            }
+          },
+          "date_collected": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "date_received": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ResultBlood": {
+        "type": "object",
+        "properties": {
+          "result_type": {
+            "type": "string",
+            "enum": [
+              "blood"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The biomarker that was analyzed."
+          },
+          "time_collected": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "result": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "unit_of_measure": {
+            "type": "string"
+          },
+          "result_level": {
+            "type": "string"
+          },
+          "range_minimum": {
+            "type": "string"
+          },
+          "range_maximum": {
+            "type": "string"
+          },
+          "comments": {
+            "type": "string"
+          }
+        }
+      },
+      "ResultDNA": {
+        "type": "object",
+        "properties": {
+          "result_type": {
+            "type": "string",
+            "enum": [
+              "DNA"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The biomarker that was analyzed."
+          },
+          "time_collected": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "result": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "comments": {
+            "type": "string"
+          }
+        }
+      },
+      "SampleEvent": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/SampleStatus"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SampleStatus": {
+        "type": "string",
+        "description": "The new status of the sample.",
+        "enum": [
+          "awaiting_collection",
+          "collection_exception",
+          "delivery_exception",
+          "delivered",
+          "in_transit",
+          "received",
+          "resulted",
+          "partially_resulted",
+          "extra_quality_checks",
+          "cancelled"
+        ]
       },
       "UploadDnaResults": {
         "type": "object",
         "properties": {
-          "sample_id": { "type": "string" },
-          "results": { "type": "string", "format": "uri" }
+          "sample_id": {
+            "type": "string"
+          },
+          "results": {
+            "type": "string",
+            "format": "uri"
+          }
         },
-        "required": ["results", "sample_id"]
+        "required": [
+          "results",
+          "sample_id"
+        ]
       },
       "UploadDnaResultsResponse": {
         "type": "object",
-        "properties": { "report": { "type": "string" } },
-        "required": ["report"]
+        "properties": {
+          "report": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "report"
+        ]
       }
     },
     "securitySchemes": {
