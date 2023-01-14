@@ -39,7 +39,7 @@
       "group": "API Reference",
       "pages": [
         "reference/create-order",
-        "reference/list-order",
+        "reference/list-orders",
         "reference/get-order",
         "reference/list-kits",
         "reference/get-kit",
