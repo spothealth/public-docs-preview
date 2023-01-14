@@ -453,15 +453,9 @@
             "description": "Recipient's address."
           },
           "street2": {
-            "oneOf": [
-              {
-                "type": "string",
-                "description": "Second line of recipient's address."
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "description": "Second line of recipient's address.",
+            "type": "string",
+            "nullable": true
           },
           "city": {
             "type": "string",
@@ -788,15 +782,7 @@
                 "type": "string"
               },
               "report": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/Report"
-                  },
-                  {
-                    "type": "null",
-                    "description": "No report has been generated for this sample."
-                  }
-                ]
+                "$ref": "#/components/schemas/Report"
               }
             }
           }
@@ -912,12 +898,15 @@
         ]
       },
       "Report": {
+        "description": "",
+        "nullable": true,
         "type": "object",
         "properties": {
           "report_id": {
             "type": "string"
           },
           "results": {
+            "description": "",
             "oneOf": [
               {
                 "type": "array",
@@ -999,6 +988,7 @@
             "format": "date-time"
           },
           "result": {
+            "description": "",
             "oneOf": [
               {
                 "type": "string"
