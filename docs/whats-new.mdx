@@ -2,3 +2,29 @@
 title: "What's new in Spot v2?"
 description: "A quick overview of the new features in Spot v2"
 ---
+
+We've rolled out a ton of new features since we launched Spot v1. We're doubling down on our mission to make launching
+home testing easier, and the changes we've made in v2 are focused on helping you build more powerful tools.
+
+### An overhaul of our existing endpoints
+
+We've made a lot of small revisions to our existing endpoints to expand the types of queries that can be made. In
+particular, we've significantly expanded the amount of data supplied in the list endpoints, and added a large number
+of new optional query parameters to filter results further. A new endpoint for retrieving the list of kit types you
+can order has also been added.
+
+### Order metadata
+
+A common request has been to be able to track various external pieces of data within Spot. We've added a new `metadata`
+field to the order creation endpoint and added a new metadata update endpoint to match.
+
+### Report amendments
+
+We now allow labs to submit amended reports if there are updates during review. These are added to the array of reports
+associated with samples with a new `is_amendment` field set to `true`.
+
+### Expanded kit and sample lifecycles
+
+We've revised kit and sample lifecycles to provide more information, and account for more possibilities. In particular,
+we've added a new `cancelled` status to kits, samples, and orders, and a new `extra_quality_checks` status to samples
+to indicate when we're doing extra validation work behind the scenes that might take a little longer.
