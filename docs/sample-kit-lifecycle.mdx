@@ -3,5 +3,15 @@ title: "Order, sample & kit lifecycles"
 description: "Learn how events shape the life of a kit as it travels to the customer and then to the lab to be processed."
 ---
 
-# Order, Sample & Kit Lifecycles
+Orders, kits, and samples are the core of Spot and follow a consistent lifecycle of events. A table of each of these
+and their respective statuses is shown below.
+
+# Orders
+
+| Status | Description |
+|--------|-------------|
+| `pending` | When an order is first created and does not have any kits added to it, the pending status indicates that the order is waiting on Spot to fulfil it. |
+| `in_progress` | Once kits have been added to the order and at least one kit or sample within the order has not yet reached an end state it is marked as being in progress. |
+| `completed` | If every kit and sample in an order has reached an end state, we automatically mark it as completed. |
+| `canceled` | Occasionally we might need to manually trigger a cancellation before the order is fulfilled. This status will only occur under exceptional circumstances.|
 
