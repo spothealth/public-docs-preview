@@ -32,16 +32,19 @@
   ],
   "navigation": [
     {
-      "group": "Guides",
+      "group": "Welcome",
       "pages": [
         "docs/introduction",
+        "docs/whats-new"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
         "docs/concepts",
         "docs/sample-kit-lifecycle",
         "docs/client-dashboard",
-        "docs/faq",
-        "docs/whats-new"
-
-
+        "docs/faq"
       ]
     },
     {
