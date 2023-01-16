@@ -768,7 +768,7 @@
           "type": {
             "type": "string",
             "description": "The kit's type",
-            "example": "example_lipid_kit"
+            "example": "health_kit_1"
           },
           "status": {
             "$ref": "#/components/schemas/KitStatus"
@@ -989,7 +989,7 @@
             },
             "description": "A list of the kit types that are included in this order.",
             "example": [
-              "example_lipid_kit"
+              "health_kit_1"
             ]
           },
           "kits": {
@@ -1044,7 +1044,7 @@
             },
             "description": "A list of the kit types that are included in this order.",
             "example": [
-              "example_lipid_kit"
+              "health_kit_1"
             ]
           },
           "kits": {
