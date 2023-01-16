@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "servers": [
     {
-      "url": "https://spotdx.com",
+      "url": "https://app.spotdx.com",
       "description": "Production"
     }
   ],
@@ -1132,50 +1132,50 @@
                 {
                   "$ref": "#/components/schemas/ResultDNA"
                 }
-              ],
-              "example": [
-                {
-                  "result_type": "quantity",
-                  "name": "HDL Cholesterol",
-                  "time_collected": "2023-01-14T04:30:11.222Z",
-                  "result": 123,
-                  "unit_of_measure": "mg/dL",
-                  "range_minimum": 20,
-                  "range_maximum": 200,
-                  "comments": null
-                },
-                {
-                  "result_type": "quantity",
-                  "name": "Vitamin B12",
-                  "time_collected": "2023-01-14T04:30:11.222Z",
-                  "result": "<10",
-                  "unit_of_measure": "pg/mL",
-                  "range_minimum": 20,
-                  "range_maximum": 200,
-                  "comments": null
-                },
-                {
-                  "result_type": "reactivity",
-                  "name": "Chlamydia",
-                  "time_collected": "2023-01-14T04:30:11.222Z",
-                  "result": "negative",
-                  "unit_of_measure": null,
-                  "range_minimum": null,
-                  "range_maximum": null,
-                  "comments": null
-                },
-                {
-                  "result_type": "DNA",
-                  "name": "rs1234567",
-                  "time_collected": "2023-01-14T04:30:11.222Z",
-                  "result": "TT",
-                  "unit_of_measure": null,
-                  "range_minimum": null,
-                  "range_maximum": null,
-                  "comments": null
-                }
               ]
-            }
+            },
+            "example": [
+              {
+                "result_type": "quantity",
+                "name": "HDL Cholesterol",
+                "time_collected": "2023-01-14T04:30:11.222Z",
+                "result": 123,
+                "unit_of_measure": "mg/dL",
+                "range_minimum": 20,
+                "range_maximum": 200,
+                "comments": null
+              },
+              {
+                "result_type": "quantity",
+                "name": "Vitamin B12",
+                "time_collected": "2023-01-14T04:30:11.222Z",
+                "result": "<10",
+                "unit_of_measure": "pg/mL",
+                "range_minimum": 20,
+                "range_maximum": 200,
+                "comments": null
+              },
+              {
+                "result_type": "reactivity",
+                "name": "Chlamydia",
+                "time_collected": "2023-01-14T04:30:11.222Z",
+                "result": "negative",
+                "unit_of_measure": null,
+                "range_minimum": null,
+                "range_maximum": null,
+                "comments": null
+              },
+              {
+                "result_type": "DNA",
+                "name": "rs1234567",
+                "time_collected": "2023-01-14T04:30:11.222Z",
+                "result": "TT",
+                "unit_of_measure": null,
+                "range_minimum": null,
+                "range_maximum": null,
+                "comments": null
+              }
+            ]
           },
           "pdf": {
             "type": "string",
