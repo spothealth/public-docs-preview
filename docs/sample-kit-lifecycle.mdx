@@ -8,6 +8,12 @@ and their respective statuses is shown below.
 
 # Orders
 
+![Order lifecycle](/img/order-lifecycle.png)
+
+Orders are the top-level object in Spot. A single order means Spot fulfilling to a single destination and can contain
+any number of kits. When an order is first created, it will not contain any kits, these are subsequently added to the
+order during the fulfillment process.
+
 | Status | Description |
 |--------|-------------|
 | `pending` | When an order is first created and does not have any kits added to it, the pending status indicates that the order is waiting on Spot to fulfil it. |
