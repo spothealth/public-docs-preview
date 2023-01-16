@@ -21,3 +21,19 @@ order during the fulfillment process.
 | `completed` | If every kit and sample in an order has reached an end state, we automatically mark it as completed. |
 | `canceled` | Occasionally we might need to manually trigger a cancellation before the order is fulfilled. This status will only occur under exceptional circumstances.|
 
+# Kits
+
+![Kit lifecycle](/img/kit-lifecycle.png)
+
+Self-collection kits, or "kits", are designed to facilitate the collection of samples needed for a panel.
+
+| Status | Description |
+|--------|-------------|
+| `pending` | When a kit is first created, it is marked as pending. |
+| `in_transit` | Once a kit has been sent to the customer, it is marked as in transit. |
+| `delivered` | Once the courier marks the kit as delivered to customer, it is marked as delivered. |
+| `delivery_exception` | If something goes wrong during shipping, we mark the kit as delivery_exception. |
+| `registered` | While following the instructions inside the kit, the patient will be instructed to register their kit on your branded portal. |
+| `canceled` | If the kit becomes no longer needed before being registered or a delivery exception occurring, we'll manually mark it as canceled. |
+
+
