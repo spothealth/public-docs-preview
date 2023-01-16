@@ -32,8 +32,17 @@
   ],
   "navigation": [
     {
-      "group": "Guide",
-      "pages": ["introduction"]
+      "group": "Guides",
+      "pages": [
+        "docs/introduction",
+        "docs/concepts",
+        "docs/sample-kit-lifecycle",
+        "docs/client-dashboard",
+        "docs/faq",
+        "docs/whats-new"
+
+
+      ]
     },
     {
       "group": "API Reference - Orders",
