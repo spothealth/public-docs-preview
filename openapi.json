@@ -94,11 +94,35 @@
           },
           {
             "in": "query",
-            "name": "order_id",
+            "name": "created_before",
             "schema": {
               "type": "string"
             },
-            "description": "Get kits belonging to a specified order ID"
+            "description": "Only retrieve orders created on or before this date. Format: YYYY-MM-DD"
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve orders created on or after this date. Format: YYYY-MM-DD"
+          },
+          {
+            "in": "query",
+            "name": "updated_before",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve orders updated on or before this date. Format: YYYY-MM-DD"
+          },
+          {
+            "in": "query",
+            "name": "updated_after",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve orders updated on or after this date. Format: YYYY-MM-DD"
           }
         ],
         "security": [
@@ -180,7 +204,7 @@
     "/api/v2/orders/": {
       "get": {
         "operationId": "api_v2_list_orders",
-        "description": "Get a list of your orders. Providing any query params will further filter the results to only those that match the query params.",
+        "description": "Get a list of your orders sorted by recently updated. Providing any query params will further filter the results to only those that match the query params.",
         "parameters": [
           {
             "in": "query",
@@ -246,6 +270,38 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "in": "query",
+            "name": "created_before",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve orders created on or before this date. Format: YYYY-MM-DD"
+          },
+          {
+            "in": "query",
+            "name": "created_after",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve orders created on or after this date. Format: YYYY-MM-DD"
+          },
+          {
+            "in": "query",
+            "name": "updated_before",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve orders updated on or before this date. Format: YYYY-MM-DD"
+          },
+          {
+            "in": "query",
+            "name": "updated_after",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Only retrieve orders updated on or after this date. Format: YYYY-MM-DD"
           }
         ],
         "security": [
