@@ -25,7 +25,8 @@ order during the fulfillment process.
 
 ![Kit lifecycle](/img/kit-lifecycle.png)
 
-Self-collection kits, or "kits", are designed to facilitate the collection of samples needed for a panel.
+Self-collection kits are designed to facilitate the collection of samples needed for a panel. Status changes in kits
+are recorded as events associated with the kit.
 
 | Status | Description |
 |--------|-------------|
@@ -36,4 +37,26 @@ Self-collection kits, or "kits", are designed to facilitate the collection of sa
 | `registered` | While following the instructions inside the kit, the patient will be instructed to register their kit on your branded portal. |
 | `canceled` | If the kit becomes no longer needed before being registered or a delivery exception occurring, we'll manually mark it as canceled. |
 
+# Samples
 
+![Sample lifecycle](/img/sample-lifecycle.png)
+
+Samples are what the labs in Spot's network will analyze to report results. Each panel has its own requirements for
+specimen type (blood, urine, saliva, cheek swab, etc.) and collection format (Whatman 903, ADx100, Hemaspot,
+Microtainer, tubes, flocked swabs, etc).
+
+Samples must be mailed back to the lab for analysis. Sometimes samples may be routed multiple times before reaching
+their destination lab. Spot's sample tracking accounts for this.
+
+| Status | Description |
+|--------|-------------|
+| `awaiting_collection` | Once we create the shipping label for the sample, it is initially marked as awaiting collection until we receive further tracking updates. |
+| `collection_exception` | If the patient has a problem collecting their sample and contacts support, we may mark the sample as a collection exception if the patient could not collect a valid sample. |
+| `in_transit` | Once the patient places the sample in the mail, we receive tracking updates from the courier and mark the sample as in transit. Occasionally, we don't receive tracking updates until the sample is delivered. In these cases, the sample may skip to the delivered status. |
+| `delivered` | Once the courier marks the sample as delivered to the lab, we mark the sample as delivered. |
+| `delivery_exception` | If there's an issue with shipping or the sample is lost in transit we mark the sample as having had a delivery exception. |
+| `received` | Some of our lab partners provide us an accession notification to let us know they've received the sample. If they do, we communicate this with the received event. |
+| `extra_quality_checks` | Occasionally we may need to perform extra checks after receiving a report from the lab. This status indicates there may be a short delay in results being available.|
+| `resulted` | The lab has analyzed the sample and have released a report to us. |
+| `partially_resulted` | The lab has released a report to us, but they were not able to analyze all of the results on the panel. This most commonly occurs due to the patient not supplying enough blood. |
+| `rejected` | The sample was not suitable for analysis. This is most commonly due to not enough blood being provided, too much time passing since the sample was collected, or user error during collection. |
