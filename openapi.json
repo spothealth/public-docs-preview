@@ -857,6 +857,18 @@
           },
           "sample_status": {
             "$ref": "#/components/schemas/SampleStatus"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time the kit was created.",
+            "example": "2023-01-01T04:30:11.222Z"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time the kit was last updated.",
+            "example": "2023-01-01T04:30:11.222Z"
           }
         }
       },
@@ -975,19 +987,26 @@
         "properties": {
           "order_id": {
             "type": "string",
-            "description": "The order ID.",
+            "description": "The order's unique ID.",
             "example": "O1234567"
           },
           "status": {
             "$ref": "#/components/schemas/OrderStatus"
           },
+          "recipient": {
+            "$ref": "#/components/schemas/Recipient"
+          },
           "created": {
             "type": "string",
             "format": "date-time",
+            "description": "The date and time the order was created.",
             "example": "2023-01-01T04:30:11.222Z"
           },
-          "recipient": {
-            "$ref": "#/components/schemas/Recipient"
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time the order was last updated.",
+            "example": "2023-01-01T04:30:11.222Z"
           }
         }
       },

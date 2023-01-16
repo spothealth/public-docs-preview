@@ -2,3 +2,21 @@
 title: "List kits"
 openapi: "GET /api/v2/kits/"
 ---
+
+<ResponseExample>
+
+  ```json Response
+  [
+    {
+      "kit_id": "SPOT123456",
+      "kit_type": "health_kit_1",
+      "order_id": "O1234567",
+      "kit_status": "preparing",
+      "sample_status": "awaiting_collection",
+      "created": "2023-01-01T04:30:11.222Z",
+      "updated": "2023-01-01T04:30:11.222Z"
+    }
+  ]
+  ```
+
+</ResponseExample>
