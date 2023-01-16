@@ -302,7 +302,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateOrderResponse"
+                  "$ref": "#/components/schemas/OrderEmpty"
                 }
               }
             },
@@ -346,7 +346,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/OrderFull"
                 }
               }
             },
@@ -416,7 +416,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Order"
+                  "$ref": "#/components/schemas/OrderFull"
                 }
               }
             },
@@ -636,7 +636,10 @@
             "items": {
               "type": "string"
             },
-            "description": "A list of all the kit types to place in the order."
+            "description": "A list of all the kit types to place in the order.",
+            "example": [
+              "health_kit_1"
+            ]
           },
           "recipient": {
             "$ref": "#/components/schemas/Recipient"
@@ -644,65 +647,15 @@
           "metadata": {
             "type": "object",
             "nullable": true,
-            "description": "An optional dictionary of key-value pairs stored with the order."
+            "description": "An optional dictionary of key-value pairs stored with the order.",
+            "example": {
+              "some_key": "some_value"
+            }
           }
         },
         "required": [
           "kit_types",
           "recipient"
-        ]
-      },
-      "CreateOrderResponse": {
-        "type": "object",
-        "properties": {
-          "kit_id": {
-            "type": "string",
-            "description": "The ID of the kit that was created.",
-            "example": "SPOT123456"
-          },
-          "type": {
-            "type": "string",
-            "description": "The type of kit that was created.",
-            "example": "health_kit_1"
-          },
-          "status": {
-            "$ref": "#/components/schemas/KitStatus"
-          },
-          "events": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/KitEvent"
-            }
-          },
-          "shipment_to_customer": {
-            "$ref": "#/components/schemas/Shipment"
-          },
-          "registered_to": {
-            "$ref": "#/components/schemas/Patient"
-          },
-          "panels": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "samples": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": {}
-            }
-          }
-        },
-        "required": [
-          "events",
-          "kit_id",
-          "panels",
-          "registered_to",
-          "samples",
-          "shipment_to_customer",
-          "status",
-          "type"
         ]
       },
       "CreatePatient": {
@@ -919,7 +872,7 @@
           "error"
         ]
       },
-      "Order": {
+      "OrderFull": {
         "type": "object",
         "properties": {
           "order_id": {
@@ -962,6 +915,52 @@
           }
         }
       },
+      "OrderEmpty": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "description": "The unique identifier of the order.",
+            "example": "O1234567"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-01-01T04:30:11.222Z"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/Recipient"
+          },
+          "kit_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of the kit types that are included in this order.",
+            "example": [
+              "example_lipid_kit"
+            ]
+          },
+          "kits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Kit"
+            },
+            "example": []
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true,
+            "description": "An optional dictionary of key-value pairs stored with the order.",
+            "example": {
+              "some_key": "some_value"
+            }
+          }
+        }
+      },
       "OrderStatus": {
         "type": "string",
         "enum": [
@@ -997,24 +996,33 @@
         "properties": {
           "first_name": {
             "type": "string",
-            "description": "The first name of the patient to be created."
+            "description": "The first name of the patient.",
+            "example": "Alice"
           },
           "last_name": {
             "type": "string",
-            "description": "The last name of the patient to be created."
+            "description": "The last name of the patient to be created.",
+            "example": "Smith"
           },
           "email": {
             "type": "string",
             "format": "email",
-            "description": "The email of the patient to be created."
+            "description": "The email of the patient to be created.",
+            "example": "alice123@gmail.com"
           },
           "phone": {
             "type": "string",
-            "description": "Optional phone number of the patient to be created."
+            "description": "Optional phone number of the patient.",
+            "example": "1234567890"
           },
           "sex": {
             "type": "string",
-            "description": "The biological sex of the patient to be created."
+            "description": "The biological sex of the patient to be created.",
+            "enum": [
+              "M",
+              "F"
+            ],
+            "example": "F"
           },
           "date_of_birth": {
             "type": "string",
