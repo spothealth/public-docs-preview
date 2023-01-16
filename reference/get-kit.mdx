@@ -2,3 +2,59 @@
 title: "Get kit by ID"
 openapi: "GET /api/v2/kits/{public_id}/"
 ---
+
+<RequestExample>
+
+  ```json Request
+  {
+    "kit_types": ["health_kit_1"],
+    "recipient": {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice123@gmail.com",
+    "phone": "1234567890",
+    "address": {
+    "street1": "123 Main St",
+    "street2": "Apt 1",
+    "city": "San Francisco",
+    "state": "CA",
+    "country": "US",
+    "zip": "94105"
+  },
+  },
+    "metadata": {
+    "some_key": "some_value"
+  }
+  }
+  ```
+</RequestExample>
+
+<ResponseExample>
+
+  ```json Response
+  {
+    "order_id": "O1234567",
+    "created": "2023-01-01T04:30:11.222Z",
+    "status": "pending",
+    "recipient": {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice123@gmail.com",
+    "phone": "1234567890",
+    "address": {
+    "street1": "123 Main St",
+    "street2": "Apt 1",
+    "city": "San Francisco",
+    "state": "CA",
+    "country": "US",
+    "zip": "94105"
+  }
+  },
+    "kit_types": ["health_kit_1"],
+    "kits": [],
+    "metadata": {
+    "some_key": "some_value"
+  }
+  }
+  ```
+</ResponseExample>

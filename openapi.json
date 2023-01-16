@@ -892,11 +892,6 @@
             "description": "The unique identifier of the order.",
             "example": "O1234567"
           },
-          "created": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2023-01-01T04:30:11.222Z"
-          },
           "status": {
             "$ref": "#/components/schemas/OrderStatus"
           },
@@ -918,6 +913,18 @@
             "items": {
               "$ref": "#/components/schemas/Kit"
             }
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time the order was created.",
+            "example": "2023-01-01T04:30:11.222Z"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time the order was last updated.",
+            "example": "2023-01-01T04:30:11.222Z"
           },
           "metadata": {
             "type": "object",
