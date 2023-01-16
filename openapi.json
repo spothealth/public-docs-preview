@@ -147,6 +147,34 @@
         }
       }
     },
+    "/api/v2/kits/types": {
+      "get": {
+        "operationId": "api_v2_list_kit_types",
+        "description": "Get an array of all valid kit types that can be created.",
+        "parameters": [],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["health_kit_1", "health_kit_2", "health_kit_3"]
+                }
+              }
+            },
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v2/kits/{public_id}/": {
       "get": {
         "operationId": "api_v2_get_kit",
