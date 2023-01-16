@@ -41,14 +41,14 @@
         "reference/create-order",
         "reference/list-orders",
         "reference/get-order",
-        "reference/update-order-metadata",
+        "reference/update-order-metadata"
       ]
     },
     {
       "group": "API Reference - Kits",
       "pages": [
         "reference/list-kits",
-        "reference/get-kit",
+        "reference/get-kit"
       ]
     },
     {
