@@ -32,18 +32,28 @@
   ],
   "navigation": [
     {
-      "group": "Welcome",
+      "group": "Guide",
       "pages": ["introduction"]
     },
     {
-      "group": "API Reference",
+      "group": "API Reference - Orders",
       "pages": [
         "reference/create-order",
         "reference/list-orders",
         "reference/get-order",
         "reference/update-order-metadata",
+      ]
+    },
+    {
+      "group": "API Reference - Kits",
+      "pages": [
         "reference/list-kits",
         "reference/get-kit",
+      ]
+    },
+    {
+      "group": "API Reference - Other",
+      "pages": [
         "reference/generate-registration-token"
       ]
     }
