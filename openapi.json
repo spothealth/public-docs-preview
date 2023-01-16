@@ -113,24 +113,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "kit_id": {
-                        "type": "string"
-                      },
-                      "kit_type": {
-                        "type": "string"
-                      },
-                      "order_id": {
-                        "type": "string"
-                      },
-                      "kit_status": {
-                        "$ref": "#/components/schemas/KitStatus"
-                      },
-                      "sample_status": {
-                        "$ref": "#/components/schemas/SampleStatus"
-                      }
-                    }
+                    "$ref": "#/components/schemas/KitSummary"
                   }
                 }
               }
@@ -278,22 +261,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "order_id": {
-                        "type": "string"
-                      },
-                      "status": {
-                        "$ref": "#/components/schemas/OrderStatus"
-                      },
-                      "created": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "recipient": {
-                        "$ref": "#/components/schemas/Recipient"
-                      }
-                    }
+                    "$ref": "#/components/schemas/OrderSummary"
                   }
                 }
               }
@@ -688,28 +656,29 @@
         "type": "object",
         "properties": {
           "kit_id": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of the kit that was created.",
+            "example": "SPOT123456"
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "description": "The type of kit that was created.",
+            "example": "health_kit_1"
           },
           "status": {
-            "type": "string"
+            "$ref": "#/components/schemas/KitStatus"
           },
           "events": {
             "type": "array",
             "items": {
-              "type": "object",
-              "additionalProperties": {}
+              "$ref": "#/components/schemas/KitEvent"
             }
           },
           "shipment_to_customer": {
-            "type": "object",
-            "additionalProperties": {}
+            "$ref": "#/components/schemas/Shipment"
           },
           "registered_to": {
-            "type": "object",
-            "additionalProperties": {}
+            "$ref": "#/components/schemas/Patient"
           },
           "panels": {
             "type": "array",
@@ -737,42 +706,7 @@
         ]
       },
       "CreatePatient": {
-        "type": "object",
-        "properties": {
-          "first_name": {
-            "type": "string",
-            "description": "The first name of the patient to be created."
-          },
-          "last_name": {
-            "type": "string",
-            "description": "The last name of the patient to be created."
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "The email of the patient to be created."
-          },
-          "phone": {
-            "type": "string",
-            "description": "Optional phone number of the patient to be created."
-          },
-          "sex": {
-            "type": "string",
-            "description": "The biological sex of the patient to be created."
-          },
-          "date_of_birth": {
-            "type": "string",
-            "format": "date",
-            "description": "The date of birth of the patient to be created."
-          }
-        },
-        "required": [
-          "date_of_birth",
-          "email",
-          "first_name",
-          "last_name",
-          "sex"
-        ]
+        "$ref": "#/components/schemas/Patient"
       },
       "CreatePatientRegistrationToken": {
         "type": "object",
@@ -927,7 +861,9 @@
           },
           "created": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "The date and time the event occurred.",
+            "example": "2023-01-01T04:30:11.222Z"
           }
         }
       },
@@ -943,6 +879,33 @@
           "cancelled"
         ],
         "example": "preparing"
+      },
+      "KitSummary": {
+        "type": "object",
+        "properties": {
+          "kit_id": {
+            "type": "string",
+            "description": "The unique identifier of the kit.",
+            "example": "SPOT123456"
+          },
+          "kit_type": {
+            "type": "string",
+            "description": "The kit's type",
+            "example": "health_kit_1"
+          },
+          "order_id": {
+            "type": "string",
+            "description": "The order the kit belongs to.",
+            "nullable": true,
+            "example": "O1234567"
+          },
+          "kit_status": {
+            "$ref": "#/components/schemas/KitStatus"
+          },
+          "sample_status": {
+            "$ref": "#/components/schemas/SampleStatus"
+          }
+        }
       },
       "NotFound": {
         "type": "object",
@@ -966,7 +929,8 @@
           },
           "created": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2023-01-01T04:30:11.222Z"
           },
           "status": {
             "$ref": "#/components/schemas/OrderStatus"
@@ -1005,6 +969,65 @@
           "in_progress",
           "completed",
           "canceled"
+        ]
+      },
+      "OrderSummary": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "description": "The order ID.",
+            "example": "O1234567"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-01-01T04:30:11.222Z"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/Recipient"
+          }
+        }
+      },
+      "Patient": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the patient to be created."
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the patient to be created."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The email of the patient to be created."
+          },
+          "phone": {
+            "type": "string",
+            "description": "Optional phone number of the patient to be created."
+          },
+          "sex": {
+            "type": "string",
+            "description": "The biological sex of the patient to be created."
+          },
+          "date_of_birth": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of birth of the patient to be created."
+          }
+        },
+        "required": [
+          "date_of_birth",
+          "email",
+          "first_name",
+          "last_name",
+          "sex"
         ]
       },
       "PatientRegistrationTokenResponse": {
@@ -1303,7 +1326,8 @@
           },
           "created": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2023-01-01T04:30:11.222Z"
           }
         }
       },
@@ -1343,7 +1367,8 @@
           },
           "created": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2023-01-01T04:30:11.222Z"
           }
         }
       },
