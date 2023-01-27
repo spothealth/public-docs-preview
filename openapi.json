@@ -913,7 +913,7 @@
           "delivered",
           "delivery_exception",
           "registered",
-          "cancelled"
+          "canceled"
         ],
         "example": "preparing"
       },
@@ -1462,7 +1462,7 @@
           "resulted",
           "partially_resulted",
           "extra_quality_checks",
-          "cancelled"
+          "canceled"
         ]
       },
       "Shipment": {
