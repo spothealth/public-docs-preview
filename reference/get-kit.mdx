@@ -63,55 +63,56 @@ openapi: "GET /api/v2/kits/{public_id}/"
         }
       ],
       "panel": "lipids_panel_complete",
-      "report": {
-      "report_id": "string",
-      "results": [
-        {
-          "result_type": "quantity",
-          "name": "HDL Cholesterol",
-          "time_collected": "2023-01-14T04:30:11.222Z",
-          "result": 123,
-          "unit_of_measure": "mg/dL",
-          "range_minimum": 20,
-          "range_maximum": 200,
-          "comments": null
-        },
-        {
-          "result_type": "quantity",
-          "name": "Vitamin B12",
-          "time_collected": "2023-01-14T04:30:11.222Z",
-          "result": "<10",
-          "unit_of_measure": "pg/mL",
-          "range_minimum": 20,
-          "range_maximum": 200,
-          "comments": null
-        },
-        {
-          "result_type": "reactivity",
-          "name": "Chlamydia",
-          "time_collected": "2023-01-14T04:30:11.222Z",
-          "result": "negative",
-          "unit_of_measure": null,
-          "range_minimum": null,
-          "range_maximum": null,
-          "comments": null
-        },
-        {
-          "result_type": "DNA",
-          "name": "rs1234567",
-          "time_collected": "2023-01-14T04:30:11.222Z",
-          "result": "TT",
-          "unit_of_measure": null,
-          "range_minimum": null,
-          "range_maximum": null,
-          "comments": null
-        }
-      ],
-      "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
-      "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
-      "date_collected": "2023-01-16T11:00:09.869Z",
-      "date_received": "2023-01-16T11:00:09.869Z",
-      "is_amendment": false
+      "reports": [
+        "report_id": "string",
+        "results": [
+          {
+            "result_type": "quantity",
+            "name": "HDL Cholesterol",
+            "time_collected": "2023-01-14T04:30:11.222Z",
+            "result": 123,
+            "unit_of_measure": "mg/dL",
+            "range_minimum": 20,
+            "range_maximum": 200,
+            "comments": null
+          },
+          {
+            "result_type": "quantity",
+            "name": "Vitamin B12",
+            "time_collected": "2023-01-14T04:30:11.222Z",
+            "result": "<10",
+            "unit_of_measure": "pg/mL",
+            "range_minimum": 20,
+            "range_maximum": 200,
+            "comments": null
+          },
+          {
+            "result_type": "reactivity",
+            "name": "Chlamydia",
+            "time_collected": "2023-01-14T04:30:11.222Z",
+            "result": "negative",
+            "unit_of_measure": null,
+            "range_minimum": null,
+            "range_maximum": null,
+            "comments": null
+          },
+          {
+            "result_type": "DNA",
+            "name": "rs1234567",
+            "time_collected": "2023-01-14T04:30:11.222Z",
+            "result": "TT",
+            "unit_of_measure": null,
+            "range_minimum": null,
+            "range_maximum": null,
+            "comments": null
+          }
+        ],
+        "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
+        "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
+        "date_collected": "2023-01-16T11:00:09.869Z",
+        "date_received": "2023-01-16T11:00:09.869Z",
+        "is_amendment": false
+      ]
     }
   }
   ```

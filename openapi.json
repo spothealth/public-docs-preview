@@ -901,8 +901,11 @@
                 "type": "string",
                 "example": "lipids_panel_complete"
               },
-              "report": {
-                "$ref": "#/components/schemas/Report"
+              "reports": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Report"
+                }
               }
             }
           }
@@ -1527,12 +1530,15 @@
       "UploadDnaResultsResponse": {
         "type": "object",
         "properties": {
-          "report": {
-            "type": "string"
+          "reports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Report"
+            }
           }
         },
         "required": [
-          "report"
+          "reports"
         ]
       }
     },
