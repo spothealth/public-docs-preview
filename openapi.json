@@ -781,7 +781,7 @@
             "description": "A list of all the events that have occurred for this kit.",
             "example": [
               {
-                "status": "awaiting_collection",
+                "status": "preparing",
                 "created": "2023-01-01T04:30:11.222Z"
               },
               {
@@ -793,12 +793,8 @@
                 "created": "2023-01-06T04:30:11.222Z"
               },
               {
-                "status": "received",
+                "status": "registered",
                 "created": "2023-01-07T04:30:11.222Z"
-              },
-              {
-                "status": "resulted",
-                "created": "2023-01-08T04:30:11.222Z"
               }
             ]
           },
@@ -858,7 +854,29 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/SampleEvent"
-                }
+                },
+                "example": [
+                  {
+                    "status": "awaiting_collection",
+                    "created": "2023-01-01T04:30:11.222Z"
+                  },
+                  {
+                    "status": "in_transit",
+                    "created": "2023-01-10T04:30:11.222Z"
+                  },
+                  {
+                    "status": "delivered",
+                    "created": "2023-01-11T04:30:11.222Z"
+                  },
+                  {
+                    "status": "received",
+                    "created": "2023-01-12T04:30:11.222Z"
+                  },
+                  {
+                    "status": "resulted",
+                    "created": "2023-01-13T04:30:11.222Z"
+                  }
+                ]
               },
               "type": {
                 "type": "string",
