@@ -991,7 +991,6 @@
               "tracking_number": {
                 "type": "string",
                 "nullable": true,
-                "example": "9400123456789999876500"
               },
               "carrier": {
                 "type": "string",
@@ -1000,9 +999,12 @@
                   "ups",
                   "usps"
                 ],
-                "example": "usps",
                 "nullable": true
               }
+            },
+            "example": {
+              "tracking_number": "9400123456789999876500",
+              "carrier": "usps"
             }
           }
         },
