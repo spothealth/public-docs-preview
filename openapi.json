@@ -643,11 +643,11 @@
           },
           {
             "in": "query",
-            "name": "page",
+            "name": "offset",
             "schema": {
               "type": "integer"
             },
-            "description": "The page of results to retrieve."
+            "description": "The offset to start the list from."
           },
           {
             "in": "query",
