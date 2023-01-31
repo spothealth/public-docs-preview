@@ -76,7 +76,7 @@
     {
       "group": "API Reference - Other",
       "pages": [
-        "reference/generate-registration-token",
+        "reference/generate-registration-token"
       ]
     }
   ],
