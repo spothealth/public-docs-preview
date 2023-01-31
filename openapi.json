@@ -166,7 +166,11 @@
                   "items": {
                     "type": "string"
                   },
-                  "example": ["health_kit_1", "health_kit_2", "health_kit_3"]
+                  "example": [
+                    "health_kit_1",
+                    "health_kit_2",
+                    "health_kit_3"
+                  ]
                 }
               }
             },
@@ -591,6 +595,139 @@
           }
         }
       }
+    },
+    "/api/v2/requisitions/": {
+      "get": {
+        "operationId": "api_v2_list_requisitions",
+        "description": "Retrieve a list of requisitions.",
+        "parameters": [],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Requisition"
+                  }
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "api_v2_create_requisition",
+        "description": "Create a new requisition.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequisition"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Requisition"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/requisitions/{id}": {
+      "get": {
+        "operationId": "api_v2_get_requisition",
+        "description": "Retrieve a requisition.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the requisition to retrieve.",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "tokenAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Requisition"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
     }
   },
   "components": {
@@ -757,6 +894,79 @@
           "patient_id"
         ]
       },
+      "CreateRequisition": {
+        "type": "object",
+        "properties": {
+          "barcode": {
+            "type": "string",
+            "description": "The barcode of the sample mailed to the lab",
+            "example": "19742938328"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the patient.",
+            "example": "Alice"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the patient to be created.",
+            "example": "Smith"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The email of the patient to be created.",
+            "example": "alice123@gmail.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Optional phone number of the patient.",
+            "example": "1234567890"
+          },
+          "sex": {
+            "type": "string",
+            "description": "The biological sex of the patient to be created.",
+            "enum": [
+              "M",
+              "F"
+            ],
+            "example": "F"
+          },
+          "date_of_birth": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of birth of the patient to be created.",
+            "example": "1990-01-01"
+          },
+          "tracking": {
+            "type": "object",
+            "properties": {
+              "tracking_number": {
+                "type": "string",
+                "nullable": true,
+                "example": "9400123456789999876500"
+              },
+              "carrier": {
+                "type": "string",
+                "enum": [
+                  "fedex",
+                  "ups",
+                  "usps"
+                ],
+                "example": "usps",
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "barcode",
+          "first_name",
+          "last_name",
+          "sex",
+          "date_of_birth"
+        ]
+      },
       "Kit": {
         "type": "object",
         "properties": {
@@ -904,7 +1114,7 @@
               "reports": {
                 "type": "array",
                 "items": {
-                    "$ref": "#/components/schemas/Report"
+                  "$ref": "#/components/schemas/Report"
                 }
               }
             }
@@ -1308,6 +1518,139 @@
             "type": "boolean",
             "description": "Whether this report is an amendment to a previous report.",
             "example": false
+          }
+        }
+      },
+      "Requisition": {
+        "type": "object",
+        "properties": {
+          "requisition_id": {
+            "type": "string",
+            "description": "The ID of the requisition.",
+            "example": "f0e5a607-5b52-4d7c-a3f2-c40772d41482"
+          },
+          "barcode": {
+            "type": "string",
+            "description": "The barcode of the sample mailed to the lab",
+            "example": "19742938328"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the patient.",
+            "example": "Alice"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the patient to be created.",
+            "example": "Smith"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The email of the patient to be created.",
+            "example": "alice123@gmail.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Optional phone number of the patient.",
+            "example": "1234567890"
+          },
+          "sex": {
+            "type": "string",
+            "description": "The biological sex of the patient to be created.",
+            "enum": [
+              "M",
+              "F"
+            ],
+            "example": "F"
+          },
+          "date_of_birth": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of birth of the patient to be created.",
+            "example": "1990-01-01"
+          },
+          "tracking": {
+            "type": "object",
+            "properties": {
+              "tracking_number": {
+                "type": "string",
+                "nullable": true,
+                "example": "9400123456789999876500"
+              },
+              "carrier": {
+                "type": "string",
+                "enum": [
+                  "fedex",
+                  "ups",
+                  "usps"
+                ],
+                "example": "usps",
+                "nullable": true
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "delivered",
+              "received",
+              "extra_quality_checks",
+              "resulted",
+              "rejected",
+              "delivery_exception",
+              "report_amended"
+            ],
+            "example": "resulted"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "event": {
+                  "type": "string",
+                  "enum": [
+                    "created",
+                    "delivered",
+                    "received",
+                    "extra_quality_checks",
+                    "resulted",
+                    "rejected",
+                    "delivery_exception",
+                    "report_amended"
+                  ]
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2020-01-01T00:00:00Z"
+                }
+              }
+            },
+            "example": [
+              {
+                "event": "created",
+                "date": "2020-01-01T00:00:00Z"
+              },
+              {
+                "event": "delivered",
+                "date": "2020-01-02T00:00:00Z"
+              },
+              {
+                "event": "received",
+                "date": "2020-01-03T00:00:00Z"
+              },
+              {
+                "event": "extra_quality_checks",
+                "date": "2020-01-04T00:00:00Z"
+              },
+              {
+                "event": "resulted",
+                "date": "2020-01-05T00:00:00Z"
+              }
+            ]
           }
         }
       },
