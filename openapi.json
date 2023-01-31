@@ -651,7 +651,7 @@
           },
           {
             "in": "query",
-            "name": "page_size",
+            "name": "results",
             "schema": {
               "type": "integer"
             },
@@ -672,16 +672,6 @@
                   "items": {
                     "$ref": "#/components/schemas/Requisition"
                   }
-                }
-              }
-            },
-            "description": ""
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
                 }
               }
             },
