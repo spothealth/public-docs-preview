@@ -600,7 +600,64 @@
       "get": {
         "operationId": "api_v2_list_requisitions",
         "description": "Retrieve a list of requisitions.",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "first_name",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by first name."
+          },
+          {
+            "in": "query",
+            "name": "last_name",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by last name."
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by email."
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by phone number."
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by status."
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The page of results to retrieve."
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of results to retrieve per page."
+          }
+        ],
         "security": [
           {
             "tokenAuth": []
@@ -1600,7 +1657,6 @@
               "resulted",
               "rejected",
               "delivery_exception",
-              "report_amended"
             ],
             "example": "resulted"
           },
@@ -1651,6 +1707,12 @@
                 "date": "2020-01-05T00:00:00Z"
               }
             ]
+          },
+          "reports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Report"
+            }
           }
         }
       },
