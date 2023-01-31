@@ -946,8 +946,13 @@
         "properties": {
           "barcode": {
             "type": "string",
-            "description": "The barcode of the sample mailed to the lab",
+            "description": "The barcode of the sample mailed to the lab. We use this to identify the sample from the lab report.",
             "example": "19742938328"
+          },
+          "panel_code": {
+            "type": "string",
+            "description": "The panel code of the test being performed on the sample. We'll create these with you during onboarding.",
+            "example": "PANEL-123"
           },
           "first_name": {
             "type": "string",
@@ -990,7 +995,7 @@
             "properties": {
               "tracking_number": {
                 "type": "string",
-                "nullable": true,
+                "nullable": true
               },
               "carrier": {
                 "type": "string",
@@ -1583,6 +1588,11 @@
             "description": "The barcode of the sample mailed to the lab",
             "example": "19742938328"
           },
+          "panel_code": {
+            "type": "string",
+            "description": "The code of the panel being tested on the sample.",
+            "example": "PANEL-123"
+          },
           "first_name": {
             "type": "string",
             "description": "The first name of the patient.",
@@ -1648,7 +1658,7 @@
               "extra_quality_checks",
               "resulted",
               "rejected",
-              "delivery_exception",
+              "delivery_exception"
             ],
             "example": "resulted"
           },
