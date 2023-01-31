@@ -2,3 +2,99 @@
 title: "List requisitions"
 openapi: "GET /api/v2/requisitions/"
 ---
+
+<ResponseExample>
+  ```json
+  [
+    {
+      "requisition_id": "f0e5a607-5b52-4d7c-a3f2-c40772d41482",
+      "barcode": "19742938328",
+      "first_name": "Alice",
+      "last_name": "Smith",
+      "email": "alice123@gmail.com",
+      "phone": "1234567890",
+      "sex": "F",
+      "date_of_birth": "1990-01-01",
+      "tracking": {
+        "tracking_number": "9400123456789999876500",
+        "carrier": "usps"
+      },
+      "status": "resulted",
+      "events": [
+        {
+          "event": "created",
+          "date": "2020-01-01T00:00:00Z"
+        },
+        {
+          "event": "delivered",
+          "date": "2020-01-02T00:00:00Z"
+        },
+        {
+          "event": "received",
+          "date": "2020-01-03T00:00:00Z"
+        },
+        {
+          "event": "extra_quality_checks",
+          "date": "2020-01-04T00:00:00Z"
+        },
+        {
+          "event": "resulted",
+          "date": "2020-01-05T00:00:00Z"
+        }
+      ],
+      "reports": [
+        {
+          "report_id": "string",
+          "results": [
+            {
+              "result_type": "quantity",
+              "name": "HDL Cholesterol",
+              "time_collected": "2023-01-14T04:30:11.222Z",
+              "result": 123,
+              "unit_of_measure": "mg/dL",
+              "range_minimum": 20,
+              "range_maximum": 200,
+              "comments": null
+            },
+            {
+              "result_type": "quantity",
+              "name": "Vitamin B12",
+              "time_collected": "2023-01-14T04:30:11.222Z",
+              "result": "<10",
+              "unit_of_measure": "pg/mL",
+              "range_minimum": 20,
+              "range_maximum": 200,
+              "comments": null
+            },
+            {
+              "result_type": "reactivity",
+              "name": "Chlamydia",
+              "time_collected": "2023-01-14T04:30:11.222Z",
+              "result": "negative",
+              "unit_of_measure": null,
+              "range_minimum": null,
+              "range_maximum": null,
+              "comments": null
+            },
+            {
+              "result_type": "DNA",
+              "name": "rs1234567",
+              "time_collected": "2023-01-14T04:30:11.222Z",
+              "result": "TT",
+              "unit_of_measure": null,
+              "range_minimum": null,
+              "range_maximum": null,
+              "comments": null
+            }
+          ],
+          "pdf": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.pdf",
+          "txt": "https://app.spotkits.com/results/f0e5a607-5b52-4d7c-a3f2-c40772d41482.txt",
+          "date_collected": "2023-01-31T04:20:04.796Z",
+          "date_received": "2023-01-31T04:20:04.796Z",
+          "is_amendment": false
+        }
+      ]
+    }
+  ]
+  ```
+</ResponseExample>
