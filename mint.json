@@ -65,13 +65,18 @@
       ]
     },
     {
-      "group": "API Reference - Other",
+      "group": "API Reference - Requisitions",
       "pages": [
-        "reference/generate-registration-token",
         "docs/requisitions",
         "reference/create-requisition",
         "reference/list-requisitions",
         "reference/get-requisition"
+      ]
+    },
+    {
+      "group": "API Reference - Other",
+      "pages": [
+        "reference/generate-registration-token",
       ]
     }
   ],
