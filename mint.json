@@ -68,6 +68,7 @@
       "group": "API Reference - Other",
       "pages": [
         "reference/generate-registration-token",
+        "docs/requisitions",
         "reference/create-requisition",
         "reference/list-requisitions",
         "reference/get-requisition"
