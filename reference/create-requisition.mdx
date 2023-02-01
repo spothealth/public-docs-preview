@@ -2,3 +2,49 @@
 title: "Create requisition"
 openapi: "POST /api/v2/requisitions/"
 ---
+
+<ResponseExample>
+
+  ```json Response
+  {
+    "requisition_id": "f0e5a607-5b52-4d7c-a3f2-c40772d41482",
+    "barcode": "19742938328",
+    "account_number": "1234567890",
+    "panel_code": "PANEL-123",
+    "state_collected": "OH",
+    "patient": {
+      "first_name": "Alice",
+      "last_name": "Smith",
+      "email": "alice123@gmail.com",
+      "phone": "1234567890",
+      "sex": "F",
+      "date_of_birth": "2023-02-01",
+      "address": {
+        "street1": "123 Main St",
+        "street2": "Apt 1",
+        "city": "San Francisco",
+        "state": "CA",
+        "country": "US",
+        "zip": "94105"
+      }
+    },
+    "tracking": {
+      "tracking_number": "9400123456789999876500",
+      "carrier": "usps"
+    },
+    "status": "approved",
+    "events": [
+      {
+        "event": "created",
+        "date": "2020-01-01T00:00:00Z"
+      },
+      {
+        "event": "approved",
+        "date": "2020-01-01T00:00:00Z"
+      }
+    ],
+    "reports": []
+  }
+  ```
+
+</ResponseExample>

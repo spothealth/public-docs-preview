@@ -954,41 +954,35 @@
             "description": "The panel code of the test being performed on the sample. We'll create these with you during onboarding.",
             "example": "PANEL-123"
           },
-          "first_name": {
+          "account_number": {
             "type": "string",
-            "description": "The first name of the patient.",
-            "example": "Alice"
-          },
-          "last_name": {
-            "type": "string",
-            "description": "The last name of the patient to be created.",
-            "example": "Smith"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "The email of the patient to be created.",
-            "example": "alice123@gmail.com"
-          },
-          "phone": {
-            "type": "string",
-            "description": "Optional phone number of the patient.",
+            "description": "The account number submitted to the lab.",
             "example": "1234567890"
           },
-          "sex": {
+          "lab": {
             "type": "string",
-            "description": "The biological sex of the patient to be created.",
-            "enum": [
-              "M",
-              "F"
-            ],
-            "example": "F"
+            "description": "The name of the lab that will process the sample.",
+            "example": "CRL"
           },
-          "date_of_birth": {
+          "state_collected": {
             "type": "string",
-            "format": "date",
-            "description": "The date of birth of the patient to be created.",
-            "example": "1990-01-01"
+            "description": "The state where the sample was collected.",
+            "example": "OH"
+          },
+          "patient": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Patient"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                }
+              }
+            ]
           },
           "tracking": {
             "type": "object",
@@ -1015,10 +1009,11 @@
         },
         "required": [
           "barcode",
-          "first_name",
-          "last_name",
-          "sex",
-          "date_of_birth"
+          "panel_code",
+          "account_number",
+          "lab",
+          "state_collected",
+          "patient"
         ]
       },
       "Kit": {
@@ -1499,7 +1494,7 @@
                   "$ref": "#/components/schemas/ResultReactivity"
                 },
                 {
-                  "$ref": "#/components/schemas/ResultDNA"
+                  "$ref": "#/components/schemas/ResultGenotype"
                 }
               ]
             },
@@ -1535,7 +1530,7 @@
                 "comments": null
               },
               {
-                "result_type": "DNA",
+                "result_type": "genotype",
                 "name": "rs1234567",
                 "time_collected": "2023-01-14T04:30:11.222Z",
                 "result": "TT",
@@ -1585,49 +1580,43 @@
           },
           "barcode": {
             "type": "string",
-            "description": "The barcode of the sample mailed to the lab",
+            "description": "The full barcode of the sample mailed to the lab. Must be globally unique.",
             "example": "19742938328"
+          },
+          "account_number": {
+            "type": "string",
+            "description": "The account number submitted to the lab.",
+            "example": "1234567890"
+          },
+          "lab": {
+            "type": "string",
+            "description": "The name of the lab that will process the sample.",
+            "example": "CRL"
           },
           "panel_code": {
             "type": "string",
             "description": "The code of the panel being tested on the sample.",
             "example": "PANEL-123"
           },
-          "first_name": {
+          "state_collected": {
             "type": "string",
-            "description": "The first name of the patient.",
-            "example": "Alice"
+            "description": "The state where the sample was collected.",
+            "example": "OH"
           },
-          "last_name": {
-            "type": "string",
-            "description": "The last name of the patient to be created.",
-            "example": "Smith"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "The email of the patient to be created.",
-            "example": "alice123@gmail.com"
-          },
-          "phone": {
-            "type": "string",
-            "description": "Optional phone number of the patient.",
-            "example": "1234567890"
-          },
-          "sex": {
-            "type": "string",
-            "description": "The biological sex of the patient to be created.",
-            "enum": [
-              "M",
-              "F"
-            ],
-            "example": "F"
-          },
-          "date_of_birth": {
-            "type": "string",
-            "format": "date",
-            "description": "The date of birth of the patient to be created.",
-            "example": "1990-01-01"
+          "patient": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Patient"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                }
+              }
+            ]
           },
           "tracking": {
             "type": "object",
@@ -1671,13 +1660,14 @@
                   "type": "string",
                   "enum": [
                     "created",
+                    "approved",
+                    "denied",
                     "delivered",
                     "received",
                     "extra_quality_checks",
                     "resulted",
                     "rejected",
-                    "delivery_exception",
-                    "report_amended"
+                    "delivery_exception"
                   ]
                 },
                 "date": {
@@ -1690,6 +1680,10 @@
             "example": [
               {
                 "event": "created",
+                "date": "2020-01-01T00:00:00Z"
+              },
+              {
+                "event": "approved",
                 "date": "2020-01-01T00:00:00Z"
               },
               {
@@ -1807,13 +1801,13 @@
           }
         }
       },
-      "ResultDNA": {
+      "ResultGenotype": {
         "type": "object",
         "properties": {
           "result_type": {
             "type": "string",
             "enum": [
-              "DNA"
+              "genotype"
             ]
           },
           "name": {
@@ -1918,7 +1912,7 @@
           }
         }
       },
-      "UploadDnaResults": {
+      "UploadGenotypeResults": {
         "type": "object",
         "properties": {
           "sample_id": {
@@ -1934,7 +1928,7 @@
           "sample_id"
         ]
       },
-      "UploadDnaResultsResponse": {
+      "UploadGenotypeResultsResponse": {
         "type": "object",
         "properties": {
           "reports": {
