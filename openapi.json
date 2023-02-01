@@ -970,19 +970,79 @@
             "example": "OH"
           },
           "patient": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Patient"
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "description": "The first name of the patient.",
+                "example": "Alice"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "address": {
-                    "$ref": "#/components/schemas/Address"
-                  }
-                }
+              "last_name": {
+                "type": "string",
+                "description": "The last name of the patient to be created.",
+                "example": "Smith"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "description": "The email of the patient to be created.",
+                "example": "alice123@gmail.com"
+              },
+              "phone": {
+                "type": "string",
+                "description": "Optional phone number of the patient.",
+                "example": "1234567890"
+              },
+              "sex": {
+                "type": "string",
+                "description": "The biological sex of the patient to be created.",
+                "enum": [
+                  "M",
+                  "F"
+                ],
+                "example": "F"
+              },
+              "date_of_birth": {
+                "type": "string",
+                "format": "date",
+                "description": "The date of birth of the patient to be created."
+              },
+              "street1": {
+                "type": "string",
+                "description": "Recipient's address.",
+                "example": "123 Main St"
+              },
+              "street2": {
+                "description": "Second line of recipient's address.",
+                "type": "string",
+                "nullable": true,
+                "example": "Apt 1"
+              },
+              "city": {
+                "type": "string",
+                "description": "Recipient's city of residence.",
+                "example": "San Francisco"
+              },
+              "state": {
+                "type": "string",
+                "description": "Recipient's state of residence.",
+                "example": "CA"
+              },
+              "country": {
+                "type": "string",
+                "description": "Recipient's country of residence.",
+                "enum": [
+                  "US",
+                  "CA"
+                ],
+                "example": "US"
+              },
+              "zip": {
+                "type": "string",
+                "description": "Recipient's zip code.",
+                "example": "94105"
               }
-            ]
+            }
           },
           "tracking": {
             "type": "object",
