@@ -5,7 +5,8 @@
     "dark": "/logo.svg"
   },
   "api": {
-    "baseUrl": "https://spotdx.com"
+    "baseUrl": "https://spotdx.com",
+    "hidePlayground": true
   },
   "favicon": "/favicon.png",
   "colors": {
