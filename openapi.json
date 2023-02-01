@@ -966,7 +966,7 @@
           },
           "state_collected": {
             "type": "string",
-            "description": "The state where the sample was collected.",
+            "description": "The two letter code of the state where the sample was collected.",
             "example": "OH"
           },
           "patient": {
@@ -1660,7 +1660,7 @@
           },
           "state_collected": {
             "type": "string",
-            "description": "The state where the sample was collected.",
+            "description": "The two letter code of the state where the sample was collected.",
             "example": "OH"
           },
           "patient": {
