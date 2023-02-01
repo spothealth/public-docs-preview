@@ -1065,6 +1065,14 @@
               "tracking_number": "9400123456789999876500",
               "carrier": "usps"
             }
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true,
+            "description": "An optional dictionary of key-value pairs stored with the requisition.",
+            "example": {
+              "some_key": "some_value"
+            }
           }
         },
         "required": [
@@ -1768,6 +1776,14 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Report"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true,
+            "description": "An optional dictionary of key-value pairs stored with the requisition.",
+            "example": {
+              "some_key": "some_value"
             }
           }
         }
