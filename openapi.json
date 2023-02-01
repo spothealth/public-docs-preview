@@ -78,6 +78,14 @@
           },
           {
             "in": "query",
+            "name": "has_order",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter kits based on whether they are associated with an order. Kit ordered through the API will always have an order. Retail kits may not."
+          },
+          {
+            "in": "query",
             "name": "kit_status",
             "schema": {
               "$ref": "#/components/schemas/KitStatus"
@@ -1710,6 +1718,8 @@
             "type": "string",
             "enum": [
               "created",
+              "approved",
+              "denied",
               "delivered",
               "received",
               "extra_quality_checks",
