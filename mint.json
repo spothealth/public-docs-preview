@@ -44,8 +44,7 @@
       "pages": [
         "docs/concepts",
         "docs/sample-kit-lifecycle",
-        "docs/client-dashboard",
-        "docs/faq"
+        "docs/quickstart",
       ]
     },
     {

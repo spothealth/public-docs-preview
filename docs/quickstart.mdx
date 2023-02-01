@@ -1,0 +1,55 @@
+---
+title: Quickstart
+description: Get started right away and place your first order.
+---
+
+## Authentication
+
+You can find your API Token in the “Account Settings” page of the dashboard. The following authentication header
+must be present on every request.
+
+```json
+{
+	"Authorization": "Token <token>"
+}
+```
+
+## Place an Order
+
+Orders can be created with a single request.
+
+```
+POST https://app.spotdx.com/api/v2/orders
+```
+
+New orders require a recipient and a list of the type of kits that should be sent. You may optionally include metadata
+to be stored with the order as a JSON object.
+
+```json
+{
+  "kit_types": [
+    "health_kit_1"
+  ],
+  "recipient": {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice123@gmail.com",
+    "phone": "1234567890",
+    "address": {
+      "street1": "123 Main St",
+      "street2": "Apt 1",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "US",
+      "zip": "94105"
+    }
+  },
+  "metadata": {
+    "some_key": "some_value"
+  }
+}
+```
+
+We will acknowledge your request by providing the unique ID assigned to your order. You can use this ID to poll for
+status updates at any time. This ID will be provided with status updates pushed to the callback URL configured during
+onboarding.
