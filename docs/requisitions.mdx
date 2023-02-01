@@ -3,6 +3,8 @@ title: "Requisitions guide"
 description: "This guide will help you understand requisitions and how to use them."
 ---
 
+<Tip>Access to requisitioning is disabled by default. To enable it, talk to us and we'll get you set up</Tip>
+
 Requisitions let you use Spot's infrastructure to handle logistics, compliance and results for kits built outside of
 Spot. Supply us with the sample's barcode, the patient's registration data, and tracking information, and we'll provide
 you with tracking updates and results, as well as handling any logistical problems along the way.
@@ -12,4 +14,17 @@ results.
 
 ## Requisition lifecycle
 
-<img src="/img/requisition-lifecycle.png" height="500" />
+<img src="/img/requisition-lifecycle.png" style="max-height: 600px" />
+
+| Status | Description |
+|--------|-------------|
+| `created` | The initial event marking the creation of the requisition. |
+| `approved` | The supplied patient has passed the exclusion check. |
+| `denied` | The supplied patient has failed the exclusion check. This could be due to details like the patient's age, sex, or location |
+| `delivered` | Once the courier marks the sample as delivered to the lab, we mark the sample as delivered. |
+| `delivery_exception` | If there's an issue with shipping or the sample is lost in transit we mark the sample as having had a delivery exception. |
+| `received` | Some of our lab partners provide us an accession notification to let us know they've received the sample. If they do, we communicate this with the received event. |
+| `extra_quality_checks` | Occasionally we may need to perform extra checks after receiving a report from the lab. This status indicates there may be a short delay in results being available.|
+| `resulted` | The lab has analyzed the sample and have released a report to us. |
+| `rejected` | The sample was not suitable for analysis. This is most commonly due to not enough blood being provided, too much time passing since the sample was collected, or user error during collection. |
+
